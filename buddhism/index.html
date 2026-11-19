@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>佛学智慧 · 2026–2029 三年每日正念日历</title>
+  <style>
+    :root {
+      --bg: #f6f2ea;
+      --bg-accent: #ede7da;
+      --surface: #ffffff;
+      --surface-soft: #faf7f2;
+      --ink: #1d1b18;
+      --ink-2: #4c4841;
+      --muted: #8a8377;
+      --border: #e4ddd0;
+      --border-strong: #d1c8b8;
+      --accent: #9c5624;
+      --accent-bright: #b86a32;
+      --accent-soft: #f6ebe0;
+      --seals: #9c5624; --seals-bg: #fdf4ec;
+      --madhyamaka: #4338ca; --madhyamaka-bg: #eef2ff;
+      --path: #047857; --path-bg: #ecfdf5;
+      --mindful: #b45309; --mindful-bg: #fffbeb;
+      --shadow-sm: 0 2px 10px rgba(29, 27, 24, 0.04);
+      --shadow-md: 0 12px 36px rgba(29, 27, 24, 0.07);
+      --radius: 18px;
+      --serif: "Songti SC", "Noto Serif SC", "Georgia", "Times New Roman", serif;
+      --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --bg: #101113;
+      --bg-accent: #17191d;
+      --surface: #191b20;
+      --surface-soft: #21242b;
+      --ink: #f0ece3;
+      --ink-2: #b8b2a6;
+      --muted: #807b72;
+      --border: #2a2d35;
+      --border-strong: #3a3e48;
+      --accent: #d99b66;
+      --accent-bright: #eab382;
+      --accent-soft: #2b2118;
+      --seals: #fdba74; --seals-bg: #2e1d11;
+      --madhyamaka: #a5b4fc; --madhyamaka-bg: #1e1b4b;
+      --path: #6ee7b7; --path-bg: #064e3b;
+      --mindful: #fcd34d; --mindful-bg: #451a03;
+      --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.28);
+      --shadow-md: 0 14px 40px rgba(0, 0, 0, 0.44);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; transition: background 0.25s ease, color 0.25s ease; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 30;
+      backdrop-filter: blur(14px);
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner {
+      max-width: 1320px; margin: 0 auto; padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-mark {
+      width: 38px; height: 38px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+      color: #fff; display: grid; place-items: center; font-family: var(--serif);
+      font-weight: 700; font-size: 1.05rem; letter-spacing: 0.02em;
+      box-shadow: 0 4px 12px rgba(156, 86, 36, 0.25);
+    }
+    .brand-title { font-size: 1.02rem; font-weight: 700; letter-spacing: -0.01em; }
+    .brand-sub { font-size: 0.78rem; color: var(--muted); margin-top: 1px; }
+
+    .top-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .search-box { position: relative; display: flex; align-items: center; }
+    .search-box input {
+      width: 240px; padding: 8px 12px 8px 34px; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--surface); color: var(--ink);
+      font-size: 0.85rem; outline: none; transition: border-color 0.2s, width 0.2s;
+    }
+    .search-box input:focus { border-color: var(--accent); width: 280px; }
+    .search-icon { position: absolute; left: 12px; color: var(--muted); font-size: 0.85rem; pointer-events: none; }
+
+    .btn {
+      border: 1px solid var(--border); background: var(--surface); color: var(--ink);
+      padding: 8px 13px; border-radius: 999px; font-size: 0.83rem; font-weight: 500;
+      cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+      transition: all 0.16s ease;
+    }
+    .btn:hover { border-color: var(--border-strong); background: var(--surface-soft); }
+    .btn.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+    .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn-primary:hover { background: var(--accent-bright); border-color: var(--accent-bright); }
+
+    .filters-bar {
+      max-width: 1320px; margin: 14px auto 0; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    }
+    .chip-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .chip {
+      padding: 6px 12px; border-radius: 999px; font-size: 0.78rem; font-weight: 500;
+      border: 1px solid var(--border); background: var(--surface); color: var(--ink-2);
+      cursor: pointer; transition: all 0.15s ease;
+    }
+    .chip:hover { border-color: var(--border-strong); }
+    .chip.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+    .stats-pill { font-size: 0.78rem; color: var(--muted); display: flex; align-items: center; gap: 12px; }
+
+    .layout {
+      max-width: 1320px; margin: 18px auto 48px; padding: 0 24px;
+      display: grid; grid-template-columns: 1.08fr 1fr; gap: 24px; align-items: start;
+    }
+    @media (max-width: 1020px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow-sm);
+    }
+
+    .cal-panel { padding: 20px; }
+    .cal-header {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      margin-bottom: 16px; flex-wrap: wrap;
+    }
+    .month-nav { display: flex; align-items: center; gap: 8px; }
+    .month-select {
+      padding: 7px 12px; border-radius: 10px; border: 1px solid var(--border);
+      background: var(--surface-soft); color: var(--ink); font-size: 0.92rem; font-weight: 600;
+      cursor: pointer; outline: none;
+    }
+    .icon-btn {
+      width: 34px; height: 34px; border-radius: 10px; border: 1px solid var(--border);
+      background: var(--surface); color: var(--ink); cursor: pointer;
+      display: grid; place-items: center; font-size: 0.95rem;
+    }
+    .icon-btn:hover { background: var(--surface-soft); border-color: var(--border-strong); }
+
+    .weekdays {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 8px;
+      text-align: center; font-size: 0.74rem; font-weight: 600; color: var(--muted);
+    }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+    .day-empty { min-height: 74px; }
+    .day-cell {
+      min-height: 74px; padding: 7px 8px; border-radius: 12px;
+      border: 1px solid var(--border); background: var(--surface-soft);
+      cursor: pointer; display: flex; flex-direction: column; justify-content: space-between;
+      transition: all 0.14s ease; position: relative;
+    }
+    .day-cell:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .day-cell.selected {
+      border: 2px solid var(--accent); background: var(--accent-soft);
+      box-shadow: 0 4px 14px rgba(156, 86, 36, 0.14);
+    }
+    .day-cell.today .day-num::after {
+      content: "今"; font-size: 0.62rem; margin-left: 4px; padding: 1px 4px;
+      border-radius: 4px; background: var(--accent); color: #fff; font-weight: 600;
+    }
+    .day-cell.dimmed { opacity: 0.25; pointer-events: none; }
+    .day-top { display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; font-weight: 700; }
+    .day-marks { display: flex; align-items: center; gap: 3px; font-size: 0.7rem; }
+    .day-snippet {
+      font-size: 0.68rem; color: var(--ink-2); line-height: 1.25;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+      margin-top: 4px;
+    }
+    .theme-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+
+    .reader-panel { padding: 26px 28px; position: sticky; top: 82px; box-shadow: var(--shadow-md); }
+    @media (max-width: 1020px) { .reader-panel { position: static; } }
+
+    .reader-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .date-badge { font-size: 0.82rem; font-weight: 600; color: var(--muted); }
+    .theme-badge {
+      padding: 4px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 600;
+    }
+    .t-seals { color: var(--seals); background: var(--seals-bg); }
+    .t-madhyamaka { color: var(--madhyamaka); background: var(--madhyamaka-bg); }
+    .t-path { color: var(--path); background: var(--path-bg); }
+    .t-mindful { color: var(--mindful); background: var(--mindful-bg); }
+
+    .reader-title { font-size: 1.32rem; font-weight: 700; line-height: 1.38; margin: 0 0 16px; letter-spacing: -0.01em; }
+
+    .quote-box {
+      padding: 18px 20px; border-radius: 14px; background: var(--surface-soft);
+      border-left: 3px solid var(--accent); margin-bottom: 16px;
+    }
+    .quote-orig {
+      font-family: var(--serif); font-size: 1.06rem; line-height: 1.7;
+      color: var(--ink); margin: 0 0 10px; font-weight: 600;
+    }
+    .quote-zh {
+      font-size: 0.94rem; line-height: 1.72; color: var(--ink-2); margin: 0;
+    }
+
+    .author-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 12px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      margin-bottom: 16px; flex-wrap: wrap;
+    }
+    .author-info { display: flex; align-items: center; gap: 10px; }
+    .avatar {
+      width: 34px; height: 34px; border-radius: 50%; background: var(--accent-soft);
+      color: var(--accent); font-weight: 700; font-size: 0.86rem;
+      display: grid; place-items: center; font-family: var(--serif);
+    }
+    .author-name { font-size: 0.88rem; font-weight: 600; }
+    .source-name { font-size: 0.76rem; color: var(--muted); }
+
+    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    @media (max-width: 600px) { .card-grid { grid-template-columns: 1fr; } }
+    .info-card {
+      padding: 13px 14px; border-radius: 12px; background: var(--surface-soft); border: 1px solid var(--border);
+    }
+    .info-label { font-size: 0.72rem; font-weight: 700; color: var(--accent); margin-bottom: 5px; letter-spacing: 0.04em; }
+    .info-text { font-size: 0.85rem; line-height: 1.6; color: var(--ink-2); margin: 0; }
+
+    .note-box { margin-bottom: 16px; }
+    .note-label { display: flex; justify-content: space-between; font-size: 0.76rem; color: var(--muted); margin-bottom: 6px; }
+    .note-box textarea {
+      width: 100%; min-height: 68px; padding: 10px 12px; border-radius: 12px;
+      border: 1px solid var(--border); background: var(--surface-soft); color: var(--ink);
+      font-family: var(--sans); font-size: 0.85rem; resize: vertical; outline: none;
+    }
+    .note-box textarea:focus { border-color: var(--accent); }
+
+    .reader-actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+    .action-left { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.45);
+      display: none; place-items: center; z-index: 60; padding: 20px;
+    }
+    .modal-backdrop.open { display: grid; }
+    .modal {
+      width: 100%; max-width: 560px; background: var(--surface); border-radius: 20px;
+      border: 1px solid var(--border); padding: 24px; box-shadow: var(--shadow-md);
+      max-height: 85vh; overflow-y: auto;
+    }
+    .modal h3 { margin: 0 0 6px; font-size: 1.1rem; }
+    .modal-sub { font-size: 0.82rem; color: var(--muted); margin: 0 0 16px; }
+    .check-row {
+      display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px;
+      border-radius: 10px; border: 1px solid var(--border); margin-bottom: 8px; cursor: pointer;
+    }
+    .check-row:hover { background: var(--surface-soft); }
+    .check-row input { margin-top: 3px; accent-color: var(--accent); }
+    .kbd-hint { font-size: 0.74rem; color: var(--muted); margin-top: 12px; text-align: center; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">禅</div>
+        <div>
+          <div class="brand-title">佛学智慧 · 三年每日正念日历</div>
+          <div class="brand-sub">2026年11月 — 2029年11月 · 198 句独家法语 · 半年零重复</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <div class="search-box">
+          <span class="search-icon">⌕</span>
+          <input id="searchInput" type="text" placeholder="搜索法语、经典、导师或关键字..." />
+        </div>
+        <button class="btn" id="favFilterBtn">★ 仅看收藏</button>
+        <button class="btn" id="checklistBtn">☑ 四法印正念清单</button>
+        <button class="btn" id="todayBtn">回到今天</button>
+        <button class="btn" id="themeBtn" title="切换日/夜模式">◐ 外观</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="filters-bar">
+    <div class="chip-group" id="themeFilters">
+      <button class="chip active" data-theme="all">全部主题</button>
+      <button class="chip" data-theme="seals">四法印与正见</button>
+      <button class="chip" data-theme="madhyamaka">中观与空性</button>
+      <button class="chip" data-theme="path">成佛之道与戒律</button>
+      <button class="chip" data-theme="mindful">生死觉知与AI时代</button>
+    </div>
+    <div class="chip-group" id="authorFilters">
+      <button class="chip active" data-author="all">全部来源</button>
+      <button class="chip" data-author="宗萨">宗萨仁波切</button>
+      <button class="chip" data-author="印顺">成佛之道</button>
+      <button class="chip" data-author="菩萨">龙树 / 月称 / 寂天</button>
+      <button class="chip" data-author="经">佛经原典</button>
+      <button class="chip" data-author="AI">AI 与数字佛法</button>
+    </div>
+    <div class="stats-pill">
+      <span id="readStat">已读 0 天</span>
+      <span id="favStat">收藏 0 条</span>
+    </div>
+  </div>
+
+  <main class="layout">
+    <section class="panel cal-panel">
+      <div class="cal-header">
+        <div class="month-nav">
+          <button class="icon-btn" id="prevMonthBtn" title="上个月">‹</button>
+          <select class="month-select" id="monthSelect"></select>
+          <button class="icon-btn" id="nextMonthBtn" title="下个月">›</button>
+        </div>
+        <div style="font-size:0.78rem; color:var(--muted);" id="monthSummary"></div>
+      </div>
+      <div class="weekdays">
+        <div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="kbd-hint">快捷键：← / → 切换前一天或后一天 · F 收藏当前法语</div>
+    </section>
+
+    <section class="panel reader-panel" id="readerPanel"></section>
+  </main>
+
+  <div class="modal-backdrop" id="checklistModal">
+    <div class="modal">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3>四法印与闻思修每日正念检查清单</h3>
+        <button class="icon-btn" id="closeModalBtn">✕</button>
+      </div>
+      <p class="modal-sub">每日或每周自省一次，把“座上”的理解带入“座下”的日常生活（自动保存在本地浏览器）。</p>
+      <div id="checklistBody"></div>
+    </div>
+  </div>
+
+  <script>
+    const DATA = [{"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "四法印：正见的试金石", "quote": "诸行无常，有漏皆苦，诸法无我，涅槃寂静。", "zh": "四法印并非道德诫命或神秘隐喻，而是检验一切见地是否契合佛陀智慧的世俗真理印记。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "真正区分佛教徒与非佛教徒的不是外在仪式，而是内心是否认同这四项基本实相。", "action": "今天遇到任何烦恼时，试着用四法印逐一检视自己的执着点。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "无常不是坏消息", "quote": "一切和合事物皆无常。", "zh": "人们常把无常误解为悲观的宿命，但正因为一切皆在变化，沮丧才得以消散，希望与改变才成为可能。", "source": "《人间是剧场》· 新浪专访", "url": "https://news.sina.cn/sa/2011-11-18/detail-ikmyaawa3571708.d.html?vt=4", "insight": "如果事物是永恒不变的，痛苦将永远凝固，任何修行与努力都将失去意义。", "action": "观察一件你今天感到焦虑的事，提醒自己它也正处于流动与变化之中。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "杯子与茶的比喻", "quote": "仪式只是承载真理的杯子，见地才是里面的茶。", "zh": "传统仪轨与外在形式如同盛茶的杯子，能帮助我们端起正见；但若只执着于杯子的华丽而忘了喝茶，便本末倒置。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "修行的重点在于透过外在善巧去品味无常与无我的智慧，而非迷恋形式本身。", "action": "检视你日常的习惯或仪式，问自己：它是在提醒我觉醒，还是在喂养自我？"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "一切源自自我的情绪皆苦", "quote": "一切有漏皆苦，不确定性正是苦的核心特征。", "zh": "凡是由因缘和合而生的事物，都仰赖于其他条件而存在，因此必然带有不确定性与脆弱性，执着于此便生苦。", "source": "《2014 缘起相依（纽约）》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "苦不只是明显的疼痛，连短暂的愉悦也因害怕失去而暗含不安。", "action": "觉察今天一次情绪波动，看看它背后是否藏着对“确定感”的抓握。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "印顺法师 · 印慈法师", "initials": "印", "title": "此是苦，汝应知", "quote": "此是苦，汝应知；此是集，汝应断。", "zh": "佛法教导我们对苦采取的态度是“如实知苦”，而非愤怒、排斥或逃避；抗拒苦本身，往往会射出第二支箭。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "忧郁与焦躁往往源自贪爱与嗔恚交织，既怕失去又抗拒现状。", "action": "遇到不顺时暂停三秒，在心里默念“这就是当下经验的苦”，单纯地看见它。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "购物如永生般的错觉", "quote": "忘记无常时，我们购物时就像自己还要再活一千年。", "zh": "忘记生命的短暂与无常，让我们把一切视为理所当然，因过度索取与囤积而消耗自己与世界。", "source": "新浪专访《佛教是民主的》", "url": "https://news.sina.cn/sa/2011-11-18/detail-ikmyaawa3571708.d.html?vt=4", "insight": "对无常的深刻体认，不仅让人学会放下，更会自然生起感恩与节制。", "action": "下单或消费前停顿一下，问自己：这件物品是真实需要，还是对安全感的幻想？"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "印顺法师 · 印慈法师", "initials": "印", "title": "三法印即缘起的异门宣说", "quote": "缘起是佛法核心，三法印是缘起的具体显说。", "zh": "因缘所生法必然生灭流动（无常），必然无独立主宰的自体（无我），而通达此理息灭烦恼即是（涅槃）。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "三法印并非彼此孤立的教条，而是从不同侧面指向同一个缘起实相。", "action": "选一个日常现象（如一杯热茶变凉），用无常、无我与缘起三个角度观察它。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "涅槃超越一切概念", "quote": "涅槃不是某个遥远的地方，而是超越二元概念的寂静。", "zh": "凡是我们能想象、描述或贴标签的“理想境界”，都仍是概念的产物；涅槃并非得到某物，而是彻底止息对概念的执取。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "连“我要证得涅槃”的企图本身，也可能是另一种微细的执着。", "action": "静坐五分钟，不追求任何特殊体验，只是观察念头生起又消散。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "印顺法师 · 印慈法师", "initials": "印", "title": "遮诠之美：涅槃不是什么", "quote": "一切苦的止息，不生、不受、不取，名为涅槃。", "zh": "因涅槃超越世俗经验，佛法多用“遮诠”（否定式表述）来指向它，避免我们用有限的生活经验去错认实相。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "就像无法用方形或三角形定义圆，超越分别的境界也只能通过破除妄执来显发。", "action": "放下今天对“完美结果”的预设，体验不加评判地完成手头的工作。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《金刚经》 · 宗萨仁波切", "initials": "金", "title": "不以色声求如来", "quote": "若以色见我，以音声求我，是人行邪道，不能见如来。", "zh": "若把佛陀当成外在偶像或万能救世主来祈求，便落入了二元对立的邪见；真正的佛法是指向内心觉性的觉醒。", "source": "《入中论讲记》· 《人间是剧场》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "佛陀自己也说无法替众生消除痛苦，只能指明道路，行路者仍是自己。", "action": "今天把向外寻求认可或拯救的念头收回来，向内观照自己的动机。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《楞严经》", "initials": "楞", "title": "指月之喻：莫执指为月", "quote": "如人以手指月示人，彼人因指当应看月。", "zh": "文字、经典、仪式与科技工具都只是指向月亮的手指；若只盯着手指赞叹研究，反而会错失真正的月亮。", "source": "《楞严经》卷2 · AI时代佛教弘化论文", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "学佛最忌把佛学名词当成装饰品，而忘了它要对治的是当下的贪嗔痴。", "action": "读完今天的一段法语后，合上页面，在生活中实际运用一次。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《别译杂阿含经》", "initials": "阿", "title": "生灭之法：胜过百年虚度", "quote": "若人生百岁，不解生灭法，不如生一日，而得解了之。", "zh": "生命的价值不在于单纯延续长度，而在于是否真正看清生灭无常的实相并活出觉知。", "source": "《别译杂阿含经》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "带着觉察度过清醒的一天，胜过在习惯与麻木中度过漫长岁月。", "action": "为今天设定一个“清醒时刻”，比如吃饭或散步时彻底放下手机。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "短暂的涅槃时刻", "quote": "不再因别人的称赞而轻飘，也不再因批评而沮丧。", "zh": "当习惯性的焦虑与自我防御在某件事上松动时，那种不再被得失牵着走的自在，就是一种短暂的涅槃。", "source": "《人间是剧场》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "涅槃并非遥不可及的神话，每一次放下多余的执着都是它的微光。", "action": "今天若收到批评或赞美，观察内心升起的波澜，试着不立刻做出反应。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "印顺法师 · 印慈法师", "initials": "印", "title": "无求乃乐：离系才是真安稳", "quote": "一切焦虑不安与患得患失，皆源于无穷无尽的希求。", "zh": "世俗的快乐往往是“欲望暂时被满足”后的短暂喘息；唯有减少对结果的盲目攀缘，心才能获得不依赖外境的安稳。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "满足感其实正是在“不再继续索求”的那一瞬间生起的。", "action": "列出一件你最近紧抓不放的结果，试着把注意力移回当下能做的耕耘。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "见地决定动机与行为", "quote": "究竟而言，是正见在佛教的道路上指引我们。", "zh": "没有正见支撑的善行容易变成自我标榜或交易；以无常、无我为基石，慈悲与善行才能真正导向解脱。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "方向比速度更重要，见地是整条修行之路的导航系统。", "action": "做一件善事或帮助他人前，先花三秒检查自己的发心是否夹带回报期待。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《成佛之道》", "initials": "佛", "title": "佛法重验证：做个问题学生", "quote": "佛法中理性的思辨，正是通向智慧的桥梁。", "zh": "盲从与迷信不是佛法；无论是三法印还是因果观，佛陀都鼓励弟子如实观察、不断发问、亲身验证。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "有疑问并不可怕，带着真诚去思辨，正见才会在心中扎根。", "action": "记下一个你对佛法或人生最困惑的问题，不急着找标准答案，先如实观察它。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "空性不是空杯子", "quote": "真正的空性不是空无所有，而是同时具有成为一切的可能性。", "zh": "很多人把空性误以为是“什么都没有”或大脑一片空白；其实正因为现象没有固定不变的自性，万物才能互相依存、千变万化。", "source": "《佛教的见地与修道》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "空性即“满”：因为没有固有标签限制，同一个事物才能呈现出无限的潜能。", "action": "面对一个被你贴上“绝对糟糕”标签的人或事，试着找出它另一面的可能性。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "龙树菩萨 · 《中论》", "initials": "龙", "title": "八不中道：破除实有执着", "quote": "不生亦不灭，不常亦不断，不一亦不异，不来亦不出。", "zh": "世俗以为“因+缘=独立新果”，但中观指出因与果皆无固定自体，故说非有不生、不生不灭，以此破除常见与断见。", "source": "《中论》 · 《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "中道并非折中妥协，而是超越“绝对存在”与“绝对不存在”的两端。", "action": "在今天的争论或二元选择中，尝试跳出非黑即白的框架。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "月称菩萨 · 宗萨仁波切", "initials": "月", "title": "《入中论》：一切皆依他而起", "quote": "没有独立的左，也没有独立的右；存在与不存在互相观待。", "zh": "若右能独立存在，便不需要左作为参考点；一切现象皆是互相依存、相互观待而显现，这就是缘起性空。", "source": "《入中论讲记》 · 《佛教的见地与修道》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "“我”与“他”、“主体”与“客体”也是彼此观待的假名，没有孤立的实体。", "action": "观察今天令你生气的人，思考他与你之间的互动是如何互相塑造的。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "月称菩萨", "initials": "月", "title": "车零件的拆解：何处是自我？", "quote": "由离诸蕴无我故，我见所缘唯是蕴。", "zh": "把一辆车拆成螺丝与轮子，“车”在哪里？同样，在身体、情绪、念头和名字之中细细寻找，找不到一个独立主宰的“我”。", "source": "《入中论讲记》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "相对层面上的“我”只是一个方便的标签，真正的烦恼来自把这个标签当真。", "action": "当念头说“我很受伤”时，问一句：究竟是哪个部分在受伤？"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "帝洛巴", "initials": "帝", "title": "迷惑你的是对现象的执著", "quote": "并不是现象迷惑了你，迷惑你的是对现象的执著。", "zh": "外在的山河大地、声音影像本身并不会伤害我们，真正制造痛苦的，是内心企图抓住或排斥这些幻相的惯性。", "source": "《佛教的见地与修道》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "佛法要放下的不是现象本身，而是我们对现象投射的实有执着。", "action": "今天面对一个不喜欢的声音或画面，尝试只感知它，不贴“讨厌”的标签。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "龙树菩萨 · 月称菩萨", "initials": "龙", "title": "无需抛弃轮回才能成佛", "quote": "并非舍弃轮回之后另有佛可成，而是了知轮回本无自性。", "zh": "世俗与胜义并非两个割裂的世界；认清当下纷繁流转的体验本质如梦如幻，轮回当下即是解脱的道场。", "source": "《入中论讲记》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "真正的修行不是逃离生活去深山，而是在红尘的剧场中看清剧本的虚幻。", "action": "把今天最琐碎的一件家务或工作，当成观照自心的修行场所。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "空性与佛性是一体两面", "quote": "空性是去除无明后的状态，佛性是本自具足的光明潜能。", "zh": "龙树系从“破除蔽障”讲空性，无著系《宝性论》从“去除云雾后显现晴空”讲佛性，两者指的其实是同一实相。", "source": "《究竟一乘宝性论》 · 《入中论讲记》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "我们不必从外界创造佛性，只需像治疗黄疸病一样，让白色的海螺恢复本色。", "action": "即使今天犯了错或感到低落，也提醒自己：烦恼只是暂时的云雾，不是你的本质。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "白色海螺与黄疸病的比喻", "quote": "海螺本自洁白，只因眼患黄疸才误见为黄。", "zh": "《宝性论》用白色海螺说明“连续性”：无论病得多重，本质从未变成邪恶；治好无明之病，清净本性自然显现。", "source": "《究竟一乘宝性论讲记》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "佛教不认为人有永恒的“原罪”，这给予了每个生命根本的尊严与解脱信心。", "action": "停止苛责自己的不完美，用“治病”而非“定罪”的温柔态度面对习气。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "月称菩萨", "initials": "月", "title": "悲心与无二慧：菩萨的双翼", "quote": "声闻中佛能王生，诸佛复从菩萨生，大悲心与无二慧，菩提心是佛子因。", "zh": "月称菩萨在《入中论》开篇不礼敬佛而礼敬大悲心，因为没有大悲心与超越二元的智慧，就无法成就菩萨行与佛果。", "source": "《入中论讲记》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "大悲心让智慧不致落入枯寂，无二慧让慈悲不致变成情绪化的溺爱。", "action": "今天在帮助他人时，兼顾温暖的善意与不居功的平常心。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "远离四边：超越语言的牢笼", "quote": "非有、非无、非亦有亦无、非非有非非无。", "zh": "逻辑语言总在“存在”与“不存在”间打转，而究竟空性超越了这四种极端概念，唯有通过不断的思辨拆解方能契入。", "source": "《入中论讲记》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "读《入中论》能训练极度锋利的理性，帮我们看穿所有隐藏的哲学预设。", "action": "遇到绝对化的断言时，在心里多问一句：“事实真的只有非此即彼吗？”"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "月称菩萨", "initials": "月", "title": "若诸佛出世，法性本自如是", "quote": "若诸佛出世，若佛不出世，一切法空性，实际与真如。", "zh": "空性不是佛陀发明的新理论，也不是靠禅修捏造出来的境界；无论佛陀是否出现于世，万法的究竟实相本自如此。", "source": "《入中论》第222-223偈", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "真理不需要权威背书，它就在日常每一片落叶和每一次呼吸中运作。", "action": "安静观察窗外的自然变化，体会不依赖人类念头而自在地运作的法则。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "《心经》", "initials": "心", "title": "照见五蕴皆空，度一切苦厄", "quote": "观自在菩萨，行深般若波罗蜜多时，照见五蕴皆空，度一切苦厄。", "zh": "当观照深入到物质与心理现象（五蕴）皆无固定自性时，依附在“我执”上的痛苦便失去了立足之地。", "source": "《般若波罗蜜多心经》", "url": "https://84000.co/zh-tw", "insight": "“照见”不是强迫自己相信空，而是像阳光照亮房间一样看清事实。", "action": "把今天的感受、想法和身体感觉分开观察，看看它们各自如何来去。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "《金刚经》", "initials": "金", "title": "应无所住而生其心", "quote": "不应住色生心，不应住声香味触法生心，应无所住而生其心。", "zh": "心不执着黏着于任何外在境界或内在成就，却又能保持敏锐、清明与慈悲的回应，这就是般若的妙用。", "source": "《金刚般若波罗蜜经》", "url": "https://84000.co/zh-tw", "insight": "“无所住”不是冷漠麻木，而是像镜子照物一样，物来则应，物去不留。", "action": "做完一件事后立刻彻底放下，不把刚才的情绪带入下一件事。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "相对的善恶与绝对的平等", "quote": "智慧就是平等，当你感受到一切事物的平等性，这不就是慈悲吗？", "zh": "在相对层面，我们需要严谨分辨善恶因果；在究竟层面，了知自他与好坏皆无实有界限，慈悲与智慧便融为一体。", "source": "《人间是剧场》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "真正博大的心，是因为不再以“自我”作为衡量世界的唯一中心。", "action": "今天遇到让你反感的人时，试着想起他也和你一样渴望离苦得乐。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "月称菩萨", "initials": "月", "title": "慈悲无尽：佛岂入于寂灭？", "quote": "直至虚空未变坏，世间未证最寂灭，慧母所生悲乳育，佛岂入于寂灭处？", "zh": "由般若智慧为母、大悲为乳所养育的觉者，只要世间尚有众生受苦，就不会只顾自己安住于寂灭而弃世间于不顾。", "source": "《入中论讲记》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "大乘的最高理想不是逃离世界，而是带着觉醒的眼睛回到世界服务众生。", "action": "为身边一位正处于困境的同事或朋友，默默做一件不求回报的小事。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "印顺法师 · 印慈法师", "initials": "印", "title": "依下能起上：人天善法为基", "quote": "依下能起上，依上能摄下；随机五三异，归极唯一大。", "zh": "《成佛之道》强调渐进完整的修学次第：人天善法（五戒十善）是基础，出世解脱是深化，最终全部汇归于大乘佛果。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "不轻视基础的人格修养与日常善行，才能稳固地向上迈向深奥的佛法。", "action": "今天先把眼前最基础的承诺、守时与善语做好，这就是修行的地基。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "印顺法师 · 印慈法师", "initials": "印", "title": "戒律是助道，而非障碍", "quote": "戒律是随顺于法的，是法在身语规范上很自然的体现。", "zh": "认为“戒律束缚自由”是最大的误解；真正合理的戒律如同交通规则，它保护我们的心不被贪嗔习气冲毁，让定慧得以生起。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "没有边界的自由往往只是放纵习气的借口，自律才能换来内心的清净自在。", "action": "给自己立一条今日微小的清净约定（如不抱怨、不恶口），认真守护它。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《阿含经》 · 《成佛之道》", "initials": "阿", "title": "自通之法：以己度他情", "quote": "我不欲受苦，他人亦不欲受苦；以此自通之法，不应恼害他人。", "zh": "持戒并非出于对惩罚的恐惧，而是基于“将心比心”的同理心——因为自己珍惜生命与安稳，所以推己及人地护生。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "一切戒律的根源都是慈悲的“自通之法”，与儒家的恕道相通而更深广。", "action": "说话前先想一秒：如果对方用同样的话对我说，我会有何感受？"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《成佛之道》", "initials": "佛", "title": "八关斋戒与六斋日", "quote": "每月白月黑月之初八、十四、十五、二十三、二十九、三十，名为六斋日。", "zh": "古印度与佛教传统在每月六斋日受持一日一夜的八支斋戒，让忙碌的在家人也能短暂体验谨严淡泊、少欲知足的清净生活。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "定期给自己安排一天“低欲望清净日”，是对抗现代感官过载的良方。", "action": "看看日历，选定下一个农历初八或十五，尝试一天清淡饮食与减少娱乐。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《成佛之道》", "initials": "佛", "title": "谨严淡泊：一日一夜的出离", "quote": "谨严是身语有法度，淡泊是内心少欲知足。", "zh": "在物质丰裕与娱乐泛滥的时代，练习适度节制感官刺激（如非时食、少刷屏），能迅速让浮躁的心重新沉静下来。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "外在的简朴不是自我虐待，而是为了腾出心灵空间去感受细微的安宁。", "action": "今晚十点后放下手机与零食，让身体和意识提前进入安静的休息。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "修行不是为了“自我感觉良好”", "quote": "修持，不是要让你自我感觉良好，那只是满足世俗的自信心。", "zh": "若把修行当成心灵SPA或情绪安慰剂，一旦遇到逆境就会失望退缩；真正的前行修持，是要松动并拆解“我执”的根基。", "source": "《不是为了快乐》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "灵性唯物主义最狡猾的地方，就是用佛法词汇把“自我”包装得更神圣。", "action": "反思自己的日常修习：我是想变得更清醒，还是只想逃避不舒服的情绪？"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "寂天菩萨 · 《入菩萨行》", "initials": "寂", "title": "自他相换的菩提心", "quote": "若不心自乐，真实换他苦，非仅不成佛，生死亦无乐。", "zh": "越是只顾着保护“自我”的人，内心越容易感到脆弱与不满；而愿意把关爱投向众生的人，反而不再受卑微自尊的折磨。", "source": "《不是为了快乐》引《入菩萨行》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "没有“我”作为脆弱的靶心，赞美与贬低就再也刺伤不了你。", "action": "今天感到委屈时，试着把注意力转向：还有谁此刻也正经历着类似的难过？"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《华严经·普贤行愿品》", "initials": "华", "title": "真正的慈悲：令众生生起智慧", "quote": "十方所有诸众生，愿离忧患常安乐，获得甚深正法利，灭除烦恼尽无余。", "zh": "世俗的慈善能解决一时困苦，而究竟的慈悲是帮助自己与他人开启正见智慧，从根本上断除烦恼与痛苦的根源。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "“愿众生离忧患”是悲，“愿众生常安乐”是慈，以正法慧断烦恼才是究竟利他。", "action": "在心中为一位近期焦虑的亲友送上祝愿，并给予他一句理性温和的安抚。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "印顺法师 · 印慈法师", "initials": "印", "title": "诸佛非以水洗罪", "quote": "诸佛非以水洗罪，非以手除众生苦，非移自证于余者，示法性谛令解脱。", "zh": "佛陀不能用圣水洗净业力，也不能直接把开悟搬进别人脑中；佛法的核心永远是“自净其意”，依正见而自行解脱。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "这首偈颂彻底划清了佛法与神权救赎的界线：每个人都是自己灵魂的工程师。", "action": "不再等待外部奇迹，把今天最重要的一项自我改变立刻付诸行动。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《成佛之道》", "initials": "佛", "title": "勿轻小恶，勿忽微善", "quote": "微小的业力不断造作，也会积集成为重大的推动力。", "zh": "业力不是阎罗王的审判，而是身心行为不断重复所积累的惯性（习气）与因果相续；不轻视微小的善念与恶念至关重要。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "就像两块磁铁相吸不需要裁判，因果法则只是客观的缘起规律在运作。", "action": "今天随喜赞美他人一个小优点，同时及时刹住一个微小的抱怨念头。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《成佛之道》", "initials": "佛", "title": "闻思修三慧的递进", "quote": "依闻慧而起思慧，依思慧而入修慧，终至引发无漏智慧。", "zh": "听闻经典是“闻”，反复思考消化成自己的见解是“思”，在静坐与生活中反复串习体证是“修”；三者缺一不可。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "只闻不思容易沦为书呆子，不闻而盲修则容易在岔路上空转。", "action": "挑出一条你最认同的佛法观念，花三分钟写下它与你当前工作的具体关联。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "何谓真正的善知识（Kalyanamitra）", "quote": "善知识的意思，是灵性上的友伴与亲属。", "zh": "在寻找老师或良师益友时，不要只看名气或神通，而要看对方是否具备清净的正见、无私的慈悲，以及能指出你盲点的勇气。", "source": "《人间是剧场》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "真正好的老师是帮你独立看清实相的人，而不是让你永远依赖他的人。", "action": "感谢一位曾指出你缺点或给你清醒建议的朋友，珍惜生命中的善友。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "无条件的爱 vs 宠物式的爱", "quote": "深刻的爱是完全无条件的，毫无任何期待与个人的占有。", "zh": "我们对人或宠物的爱常夹杂着“你需要陪伴我、顺从我”的条件；而慈悲与无量心，是在不要求对方按自己剧本演出时的深切关怀。", "source": "《不是为了快乐》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "检查爱里是否藏着控制欲，是修习四无量心最重要的一步。", "action": "今天允许身边一位亲近的人，按照他自己的方式（而不是你的期望）去做一件事。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《大般若经》 · 《成佛之道》", "initials": "般", "title": "菩萨三心：一切智智相应", "quote": "一切智智相应作意，大悲为上首，无所得为方便。", "zh": "发大菩提心的人，心向究竟觉悟（智慧），以拔苦予乐为动力（大悲），同时不执着于行善的自我与成果（无所得）。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "无菩提心而修六度，就像没有地基想盖高楼；有此三心，一切日常皆成波罗蜜。", "action": "今天完成一件分内工作时，默默发愿愿它能为所有相关的人带来便利与安稳。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "活着即是迈向死亡", "quote": "最殊胜的正念，即是记得：生命无常，死亡不可避免。", "zh": "从出生的那一刻起，死亡的倒计时就已经开启；正视自己终将独自面对死亡，反而能让我们学会无比珍惜与感恩活着的每一天。", "source": "《活着即是迈向死亡》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/living-is-dying-how-to-prepare-for-death-dying-and-beyond/", "insight": "对死亡的恐惧往往来自未知与执着；提前做好心理建设，恐惧就会转化为清醒的动力。", "action": "早上醒来时感恩自己又多了一天清醒的时间，决定今天不把时间浪费在无意义的内耗上。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "《成佛之道》", "initials": "佛", "title": "安住正法谁畏死", "quote": "值得怖畏的不是老死到来，而是没有修习善法、空过一生。", "zh": "面对必然到来的衰老与别离，抗拒只会增添精神的苦痛；真正能让我们在生命终点坦然无畏的，是生前积累的智慧与慈悲。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "“向死而生”在佛法中不是凄惨的无奈，而是断恶修善后的坦然自在。", "action": "今天如果面临一个两难抉择，问自己：十年后回看今天，哪个选择更坦然？"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "吃下一小块饼干的奇迹", "quote": "可以吃下一小块饼干真好，因为无常，这一切可能随时不再发生。", "zh": "修“止”（寂止禅修）的目的不仅是压伏念头，更是帮我们收回散乱的心力，学会在最平凡的时刻升起深刻的感恩。", "source": "《人间是剧场》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "当你真正意识到每一口呼吸和食物都仰赖无数因缘，焦虑感自然会下降。", "action": "今天吃第一口饭或喝第一口茶时，闭眼感受它的温度与味道十秒钟。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "座上瑜伽与座下瑜伽", "quote": "不懂理论而修定，犹如没有双手却想爬山。", "zh": "禅修垫上的静坐（座上）与日常生活中的待人接物（座下）不可分割；如果垫上很平静、垫下却依然暴躁，说明修习尚未真正落地。", "source": "《人间是剧场》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "理论提供地图，实修迈出脚步，生活则是检验修行的唯一考场。", "action": "今天在开会或通勤的“座下”时刻，练习保持和静坐时一样的呼吸节奏。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "人工智能与佛教的觉察", "quote": "科技只是媒介与工具，关键在于使用者的动机与觉知。", "zh": "AI 能协助整理经典与翻译，却无法替代人类在无常与苦痛中生起的真实觉悟；面对算法与效率时代，更需要守住人文与正念。", "source": "《人工智能与佛教》", "url": "https://siddharthasintent.org/news/ai-and-buddhism/?lang=zh-hans", "insight": "工具越强大，越需要内在的“佛教智慧”来校准方向，避免被技术反客为主。", "action": "今天使用 AI 工具时，先明确自己的真实意图，不被海量生成信息淹没专注力。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "《AI时代佛教弘化》论文", "initials": "慧", "title": "佛教智慧（BI）四维框架", "quote": "慈悲、智慧、无我、中道，构成回应 AI 时代的佛教智慧。", "zh": "面对人工智能的冲击，佛教以“缘起–空–中道”为根基，提出以正念为导向的交互设计，在科技便利与修行深度间取得平衡。", "source": "《人工智慧（AI）時代下佛教弘化變革、機遇與應對初探》", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "未来的数字时代不仅需要算力（AI），更需要觉察力与伦理智慧（BI）。", "action": "在使用任何数字产品前做一次深呼吸，提醒自己：我是工具的主人。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "圣严法师", "initials": "圣", "title": "道与术并重：科技时代的修行", "quote": "佛教重视科学是为了辅助佛法阐扬，道和术必须并重。", "zh": "“道”是根本的解脱智慧与慈悲方向，“术”是现代科技与沟通方法；学佛者既不能脱离时代，也不能只重技术而忘了初心。", "source": "圣严法师开示 · 《AI时代佛教弘化》引", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "以现代之“术”承载古老之“道”，能让佛法在当代社会发挥更深沉的疗愈力。", "action": "思考如何用你最擅长的现代专业技能，去帮助他人减少一点困扰。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "《AI时代佛教弘化》论文", "initials": "慧", "title": "“正在回答中……请深呼吸等待”", "quote": "在技术响应的间隙，提醒人们暂停、深呼吸与向内省察。", "zh": "日本“AI 佛祖”（Hotoke AI）在生成解答前的等待画面，刻意加入深呼吸与正念提示，这正是将“媒介静默”融入科技的巧思。", "source": "《人工智慧（AI）時代下佛教弘化變革、機遇與應對初探》", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "在追求零延迟的时代，刻意留出几秒钟的“静默”，是保护心性的重要防线。", "action": "今天每次等待网页加载或消息回复时，不烦躁，借机做一次缓慢呼吸。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "日程计划：第四种现代之苦？", "quote": "修道即是解开因缘的结缚，而不是在缠结里越绕越紧。", "zh": "现代人没有日程表就仿佛活不下去，常被未来一年的安排压得喘不过气；学佛不是增加更多条条框框，而是帮我们松解内心的缠结。", "source": "《2014 缘起相依（纽约）》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "行程表只是协作工具，别让它成为统治你当下心境的暴君。", "action": "在今天的日程表里，刻意留出 15 分钟完全空白、不做任何计划的时间。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "陪伴临终：诚实而温柔地住于当下", "quote": "不要担心你的生活与工作，把握机会，住于寂静与当下。", "zh": "面对临终者，最珍贵的陪伴不是虚伪的安慰，而是温柔、诚实且平稳地陪伴对方放下牵挂，在寂静与善念中度过转换的时刻。", "source": "《活着即是迈向死亡》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/living-is-dying-how-to-prepare-for-death-dying-and-beyond/", "insight": "我们平时练习放下牵挂的每一次呼吸，其实都是在为人生的终极告别做预演。", "action": "向一位久未联系的家人或挚友表达关心，不留未尽的遗憾。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "《楞伽经》 · 圣严法师", "initials": "楞", "title": "三种智慧：世间、出世与上上智", "quote": "智有三种，谓：世间智，出世间智，出世間上上智。", "zh": "世俗学问与 AI 算力多属于“世间智”；二乘悟入无我是“出世间智”；唯有圆满洞见我法二空、悲智双运，才是佛的“出世间上上智”。", "source": "《AI时代佛教弘化》引《楞伽经》", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "聪明与智慧不同：聪明擅长计算利弊，智慧擅长看破执着、长养慈悲。", "action": "今天面对一个难题时，除了用逻辑分析（世间智），也试着用同理心与放下执着来观察。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "佛陀不曾创造宇宙", "quote": "佛法中不存在一个恒常不变的造物主，一切皆由因缘和合。", "zh": "佛教并不依靠一个全能的外在神明来奖惩世人，而是引导我们看清：一切快乐与痛苦，都源自我们自己的心念、见地与因缘组合。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "不把命运推给外在神明，意味着把改变的责任与主权完全交回自己手中。", "action": "遇到挫折时不抱怨“运气”或“别人”，先观察自己能调整的那个因缘。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "印顺法师 · 印慈法师", "initials": "印", "title": "器界成住坏空：超越世俗的幻象", "quote": "器世界尚且在成住坏空的流转中，何况身外之物？", "zh": "地球与一切物质文明都处于生成、维持、毁坏与空无的周期中；若把人生终极意义完全寄托在永恒不变的物质进步上，终将落空。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "看清外在世界的无常性，能让我们在努力建设的同时，不被成败得失绑架。", "action": "审视你最在乎的一项外在成就，问自己：即使它某天变化或消失，我还剩下什么？"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《法句经》", "initials": "法", "title": "心为法本：一切由心造", "quote": "诸法意先导，意主意造作；若以清净意，或语或行业，是则乐随彼，如影不离形。", "zh": "我们说出的每一句话、做出的每一个决定，都由当下的心念主导；清净善良的念头，自然会像影子一样带来长久的安乐。", "source": "《法句经》双品", "url": "https://84000.co/zh-tw", "insight": "外在环境难以事事如愿，但守护当下的起心动念，是我们随时可以做到的事。", "action": "今天每次开口前，先检查一下自己的意念是出于善意，还是出于防卫与抱怨。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "正见甚至不需要标签", "quote": "一个人甚至不需要自称为佛教徒，就能具有正见。", "zh": "真理属于全人类，而不属于某个宗教标签；任何一个人只要如实看清无常、缘起与无我，并以此减少伤害，便已走在正见之中。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "佛法最看重的是实相与智慧，而不是身份认同上的优越感。", "action": "放下“我是修行人”或“我懂得多”的傲慢，向身边任何一位踏实生活的人学习。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《阿含经》", "initials": "阿", "title": "缘起总纲：此有故彼有", "quote": "此有故彼有，此生故彼生；此无故彼无，此灭故彼灭。", "zh": "世间没有任何事物是孤立诞生的，一切都像一张互相关联的网；改变了其中的因缘条件，结果就会随之流转或止息。", "source": "《杂阿含经》 · 《成佛之道》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "这是佛法最简练的宇宙观：既有因果的严谨，又有改变的无限可能。", "action": "挑一个你想要改善的习惯，找出触发它的前一个“因缘条件”并切断它。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "龙树菩萨", "initials": "龙", "title": "以有空义故，一切法得成", "quote": "以有空义故，一切法得成；若无空义者，一切则不成。", "zh": "正因为万物没有僵死不变的“自性”（空性），种子才能发芽，孩子才能长大，凡夫才能修道成佛；若一切实有不变，世界便会彻底僵死。", "source": "《中论》观四谛品", "url": "https://84000.co/zh-tw", "insight": "空性不是毁灭，而是万物得以生长、流动与转化的根本前提。", "action": "遇到“我天生就是这样改不了”的念头时，用这句话打破自我设限。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "般若波罗蜜：甚至超越智慧", "quote": "般若意味至高的智力，而波罗蜜表示：甚至超越它。", "zh": "如果你觉得“有智慧是好的、无明是坏的”，仍落在二元对立里；唯有连“我在修智慧”的傲慢也一并超越，才契合《金刚经》的旨趣。", "source": "《人间是剧场》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "真正的自在，是不必时刻证明自己聪明或高明。", "action": "今天在讨论中允许自己“不知道”，不急着发表高见。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "月称菩萨", "initials": "月", "title": "如梦之茶杯：醒后何处寻？", "quote": "如梦自性离，故大论说彼，名为无初际，及无后际空。", "zh": "梦里的茶杯醒来后不见了，并非被偷走或打破，而是它本来就没有真实的自性；轮回的来去同样如此，本性空寂。", "source": "《入中论讲记》第194-195偈", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "醒来后我们不会为梦里的损失哭泣；看破实有执着，现实中的得失也会变轻。", "action": "今晚睡前，把今天所有顺利与不顺都观想成一场醒来后便会消散的梦。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "业力不是另一个上帝", "quote": "不要把业力当成宿命论或另一个创世主，业力也是依他而起。", "zh": "很多人嘴上说不信神，却把“业力”当成不可更改的宿命神明；其实业力本身也是因缘和合、无自性的，正因如此，忏悔与修行才有效。", "source": "《入中论讲记》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "如果业力是固定不变的铁律，那么任何觉悟与转变都将是不可能的。", "action": "遇到困境时别叹息“这是我的命”，而是寻找此刻可以种下的新善因。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "《金刚经》", "initials": "金", "title": "过去心不可得，现在心不可得", "quote": "过去心不可得，现在心不可得，未来心不可得。", "zh": "过去的念头已经消逝，未来的念头尚未到来，而当你试图抓住“现在”的那一刹那，它也已经滑向过去了。", "source": "《金刚般若波罗蜜经》", "url": "https://84000.co/zh-tw", "insight": "既然三心皆不可得，那些让我们彻夜难眠的懊悔与担忧，又究竟挂在何处？", "action": "觉察自己又在反复咀嚼过去或担忧未来时，轻声提醒自己“三心不可得”。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《八大人觉经》", "initials": "觉", "title": "少欲无为，身心自在", "quote": "多欲为苦，生死疲劳，从贪欲起；少欲无为，身心自在。", "zh": "世间无数奔波与疲惫，根源往往不是基本生存需求，而是无止境的欲望攀比；知足与少欲，是现代人最稀缺的自由。", "source": "《佛说八大人觉经》", "url": "https://84000.co/zh-tw", "insight": "减法往往比加法更能带来松弛感：少一点不必要的占有，多一点内心的宁静。", "action": "今天清理桌面或手机里三件不需要的东西，体会轻装前行的轻松。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "太虚大师", "initials": "太", "title": "仅取一分，不成菩提", "quote": "福德资粮，则人天俱摄；智慧资粮，则声缘相协；律及经论，皆所依止。", "zh": "学佛切忌偏执一端：只讲空性而忽略戒律与福德，容易流于狂禅；只求福报而不修智慧，则难以跳出轮回。", "source": "《成佛之道全集讲义》引太虚大师", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "福德与智慧如同鸟之双翼，戒律与经论相辅相成，方能圆满菩提大道。", "action": "平衡今天的生活：既做好世俗的尽责（福德），也留出静心阅读或观照（智慧）。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "印顺法师 · 印慈法师", "initials": "印", "title": "网络时代也要有语言威仪", "quote": "即使在别人谁也不知道的一对一对话中，也要守住原则与善意。", "zh": "戒律中的“不妄语、不两舌、不恶口、不绮语”，在社交媒体和即时通讯时代尤为重要——屏幕背后同样是因果与心性的修练场。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "匿名与隔空更容易放纵嗔心与轻慢，在网络上保持温和真诚更是真功夫。", "action": "今天发出的每一条微信或评论，确保它真实、善意且不制造对立。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "真正的出离心：不是厌倦玩具", "quote": "世俗短暂的悲伤或无聊，就像被宠坏的小孩厌烦了玩具，不是真正的出离心。", "zh": "真正的出离心不是逃避现实挫败，而是清晰地看透：轮回中没有任何一个地方能提供究竟恒常的安全感，因而生起寻找真理的决心。", "source": "《不是为了快乐》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "如果还指望下一份工作、下一段关系或下一个假期能永久解决烦恼，出离心尚未成熟。", "action": "观察自己今天是否把“彻底快乐”的希望寄托在了某个即将到来的外部事件上。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "星云大师", "initials": "星", "title": "人间慧用：在生活中安宁", "quote": "藉由‘慧’，我们在科技时代可获得幸福与安宁。", "zh": "人间佛教的戒定慧不是关在象牙塔里的理论，而是融入日常行仪、人际互动与科技生活中的清醒选择。", "source": "《AI时代佛教弘化》引星云大师", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "把“三好”（做好事、说好话、存好心）带入每一次数字沟通，就是最朴实的修行。", "action": "今天主动给一位合作者或家人发一条真诚肯定或感谢的讯息。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "破坏坏习惯：趁头发着火时", "quote": "一旦发现养成坏习惯，就应像扑灭着火的头发一样立刻制止。", "zh": "无论是情绪上的自我否定，还是对手机与即时满足的成瘾，习惯（习气）一旦固化就极难拔除，必须在它刚冒头时保持高度警觉。", "source": "《活着即是迈向死亡》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/living-is-dying-how-to-prepare-for-death-dying-and-beyond/", "insight": "修行很大一部分功夫，就是有意识地打断那些自动运行的无明习气。", "action": "识别你今天最容易自动滑向的一个坏习惯，在它发生前果断换个环境。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "《AI时代佛教弘化》论文", "initials": "慧", "title": "自省式使用工具", "quote": "这一工具如何影响了我的专注力？我是否过度依赖它？", "zh": "在 AI 与推荐算法无处不在的今天，定期提出结构化的自省问题，能帮助我们守住独立判断与主体的觉知，不被工具驯化。", "source": "《人工智慧（AI）時代下佛教弘化變革、機遇與應對初探》", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "科技提供答案的速度越快，我们越要保留自己缓慢思考与深入体验的能力。", "action": "今天至少有一件思考任务，完全不借助搜索或 AI，靠自己静心推演完成。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "信仰与理性的结合", "quote": "佛教的见地建立在逻辑分析与亲身验证之上，而非盲从。", "zh": "面对现代文明的焦虑与虚无，佛法提供的不是一套逃避现实的安慰，而是经得起最严苛逻辑检验的生命实相。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "真正的信心是在不断质疑和检验之后依然屹立不倒的清明。", "action": "对今天读到的任何观点保持开放而审慎的态度，在自己的经验中去验证它。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《杂阿含经》", "initials": "阿", "title": "五蕴非我：如聚沫与芭蕉", "quote": "观色如聚沫，受如水上泡，想如春时焰，诸行如芭蕉，诸识法如幻。", "zh": "身体如水沫般易散，感受如水泡般转瞬即逝，想法如海市蜃楼，行为冲动如空心芭蕉；看清五蕴的虚幻，执着便自然松脱。", "source": "《杂阿含经》", "url": "https://84000.co/zh-tw", "insight": "我们的痛苦常来自把转瞬即逝的水泡当成永恒的钻石紧紧攥住。", "action": "今天出现强烈的情绪感受时，把它看作水面上的一个气泡，看它几秒后如何破灭。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "欲望不是敌人，虚伪才是", "quote": "欲望本身不是最可怕的敌人，用灵性外衣掩饰欲望的虚伪才是。", "zh": "佛法从不要求压抑或假装自己没有欲望，而是教导我们诚实地看见欲望的运作方式，不自欺也不欺人。", "source": "专访《欲望不是我们的敌人，虚伪才是》", "url": "https://whysw.org/m/view.php?aid=2810", "insight": "诚实面对自己的贪婪与恐惧，比装作超然物外更接近真实的修行。", "action": "今天在日记或笔记中，坦诚记录一个自己平时不愿承认的小私心，不批判，只看见。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "印顺法师 · 印慈法师", "initials": "印", "title": "苦集灭道：佛法的诊断书", "quote": "知苦、断集、证灭、修道，是佛陀开出的生命处方。", "zh": "佛陀就像一位高明的医生：先指出病症（苦），再找出病因是贪爱与无明（集），给出痊愈的可能（灭），最后开出八正道的药方（道）。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "四圣谛不是悲观的抱怨，而是极其务实的问题解决框架。", "action": "遇到麻烦时用四谛思维：现状是什么？真正卡住的因是什么？我能采取哪一步行动？"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "没有永恒的“好人”或“坏人”", "quote": "因缘聚合而显现，没有天生固定不变的本性。", "zh": "因为一切皆无自性、处于流变之中，没有人是绝对不可救药的“坏人”，也没有人能永远停留在傲慢的巅峰。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "不给人贴死标签，是慈悲的起点，也是人际关系中最深的智慧。", "action": "对今天某个令你不满的人，摘掉你过去给他贴上的固定评判标签，重新看待他。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《大般涅槃经》", "initials": "涅", "title": "诸行无常，是生灭法", "quote": "诸行无常，是生灭法；生灭灭已，寂灭为乐。", "zh": "世间一切造作终归生灭变化，若强求不灭便是痛苦之源；唯有看透并放下对生灭的攀缘，才能尝到寂静之乐。", "source": "《大般涅槃经》", "url": "https://84000.co/zh-tw", "insight": "真正的安乐不在于事情永远顺利，而在于心不再被顺逆起伏所奴役。", "action": "在忙碌的工作间隙闭目深呼吸三次，感受喧嚣之下原本就存在的安静。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "世俗真理的两种面貌", "quote": "看清是黄疸病所致，就能区分正确的世俗与颠倒的错觉。", "zh": "月称菩萨区分“正世俗”与“倒世俗”：虽然后者如梦如幻，但但在日常层面仍须分清幻象中的逻辑与错乱，不可借口空性而胡作非为。", "source": "《入中论讲记》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "承认世界如梦，不代表过马路不用看红绿灯；真正的智慧极度尊重现实规律。", "action": "今天认真遵守日常的每一个客观规律与约定，不心存侥幸。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《法句经》", "initials": "法", "title": "胜人者有力，自胜者强", "quote": "纵使战场上胜百万人，不如降伏自己内心的烦恼。", "zh": "征服外界的敌人只能换来暂时的胜利与新的防备；唯有看破并调伏自己内心的贪嗔痴，才是永不丢失的自由。", "source": "《法句经》千品", "url": "https://84000.co/zh-tw", "insight": "所有外在的竞争到头来都是有限游戏，调伏自心才是无限游戏。", "action": "今天遇到想反驳或争输赢的冲动时，练习先微笑倾听，赢回内心的平静。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "龙树菩萨", "initials": "龙", "title": "因缘所生法，我说即是空", "quote": "众因缘生法，我说即是空，亦为是假名，亦是中道义。", "zh": "凡是依赖条件组合而成的事物，就没有独立不变的自性（空），只是方便安立的名称（假名），既不执为实有也不否定其显现（中道）。", "source": "《中论》观四谛品", "url": "https://84000.co/zh-tw", "insight": "这首四句偈被称为中观的灵魂，一句话贯通了空、假、中三谛。", "action": "看着手中的手机或电脑，思考它依赖了多少矿产、电力、代码与人的劳动才存在。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "咖啡厅里的中观解释", "quote": "《入中论》用人无我和法无我，建立依他而起的真理。", "zh": "不必用艰深的术语吓退朋友；在咖啡厅里你可以简单地说：中观就是告诉你，没有任何人或事能脱离彼此而孤立存在。", "source": "《入中论讲记》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "真正理解一个深奥道理的标志，是能用最日常的语言向他人讲清楚。", "action": "试着用两句大白话，向自己解释什么是“缘起性空”。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "《金刚经》", "initials": "金", "title": "一切有为法，如梦幻泡影", "quote": "一切有为法，如梦幻泡影，如露亦如电，应作如是观。", "zh": "不要等到灾难降临才感叹人生如梦；在一切顺境、掌声与成就正盛之时，依然能保持如梦如幻的清醒视角，才是大智慧。", "source": "《金刚般若波罗蜜经》", "url": "https://84000.co/zh-tw", "insight": "如梦幻泡影不是叫你消极颓废，而是叫你在演戏时别入戏太深、伤了自己。", "action": "今天遇到一件得意或烦心的事，试着把它当作电影里的一个镜头来欣赏。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "月称菩萨", "initials": "月", "title": "无自性故，万法皆可转变", "quote": "自性无有性，说名自性空，此性非他作，故说名自性。", "zh": "空性并非外力强加给事物的属性，而是万物原本就没有固定自性的事实；正因如此，一切痛苦与习气都有被净化的余地。", "source": "《入中论讲记》第221偈", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "连“空性”本身也是空的，切莫把空性当成另一个可以抓握的神秘实体。", "action": "放下对“开悟境界”的幻想，安住于眼前实实在在的呼吸与行动。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "不分析与彻底分析的艺术", "quote": "世俗生活无需事事拆解，但若执着为实有，中观的刀刃便会落下。", "zh": "月称菩萨并非禁止分析；在日常世俗中我们随顺习惯生活，但一旦我们因执着而痛苦时，就用无我的智慧将那个虚假的“我”拆解干净。", "source": "《入中论讲记》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "聪明地运用逻辑去破除执着，而不是用逻辑去制造更多焦虑。", "action": "当某个念头让你极度痛苦时，像拆解玩具一样拆解它：它由哪些记忆和恐惧拼成？"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "《六祖坛经》", "initials": "六", "title": "佛法在世间，不离世间觉", "quote": "佛法在世间，不离世间觉；离世觅菩提，恰如求兔角。", "zh": "脱离日常生活、人际责任与柴米油盐去寻找所谓的清净觉悟，就像在兔子头上找角一样徒劳。", "source": "《六祖大师法宝坛经》", "url": "https://84000.co/zh-tw", "insight": "工作中的摩擦、家庭里的琐碎，正是磨练心性最真实、最有效的砥石。", "action": "今天把最让你头疼的一项日常沟通，当成练习耐心与慈悲的修道场。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "《宝性论》 · 宗萨仁波切", "initials": "宝", "title": "障蔽可除，清净本在", "quote": "把烦恼蔽障去除以后的那个空间，就是佛性。", "zh": "愤怒、嫉妒与傲慢如同乌云，再厚重的乌云也无法污染天空本身；哪怕今天你只平静了一分钟，那也是佛性的微光。", "source": "《究竟一乘宝性论讲记》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "因为清净本性从未丢失，所以任何时候开始修行都不算晚。", "action": "在心烦意乱时，给自己一分钟的安静，感受情绪背后的那片辽阔空间。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "《维摩诘经》", "initials": "维", "title": "心净则佛土净", "quote": "欲净其土，当净其心；随其心净，则佛土净。", "zh": "我们总想等外部环境变完美了才快乐，但经文告诉我们：当你内心的贪嗔偏见净化了，眼前这个世界当下就变得庄严清明。", "source": "《维摩诘所说经》佛国品", "url": "https://84000.co/zh-tw", "insight": "改变看世界的滤镜，远比强迫全世界迎合自己更切实可行。", "action": "今天少挑剔一次环境或他人的毛病，看看自己的心情会有什么变化。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《成佛之道》", "initials": "佛", "title": "共下、共中与上士道", "quote": "共下士道重人天福德，共中士道重解脱生死，上士道重利他成佛。", "zh": "宗喀巴大师与印顺法师都将佛法贯通为渐进的阶梯：先学会做个正直善良的人，再追求跳出烦恼束缚，最终发愿利益一切众生。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "高楼离不开地基，行大乘菩萨道同样离不开五戒十善的扎实功夫。", "action": "对照三个次第，看看自己现阶段最需要补足的是哪一块基本功。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "印顺法师 · 印慈法师", "initials": "印", "title": "布施的真义：松手与舍得", "quote": "能舍才能得自在，布施是对治悭贪执着最直接的练习。", "zh": "布施不仅是捐钱物，还包括温和的微笑、耐心的倾听（无畏施）与分享有益的知识（法施）；每一次真诚给予都在削弱“我执”。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "当你不再把资源抓得死紧，内心的富足感反而会流淌出来。", "action": "今天在时间或知识上，慷慨地无偿帮助一位需要协助的人。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "虔诚心是佛性的化现", "quote": "看到破旧佛像时，拿一片树叶盖在它头上，这就是佛性在发挥作用。", "zh": "真正的虔诚心不是狂热的迷信或求财求福，而是一种柔软、敬重真理与善美的天然品质。", "source": "《入中论讲记》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "哪怕微小的敬意与善举，都在悄然唤醒我们内在沉睡的觉性。", "action": "今天对日常使用的物品、食物或他人的劳动心怀敬意，轻轻地、温柔地对待它们。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《成佛之道》", "initials": "佛", "title": "明相出与过午不食的节律", "quote": "拂晓自然光下看清手掌纹为明相出，日中之前为时食。", "zh": "佛制戒律对时间与节律有着极其细致的觉察；在现代生活中，这种对饮食与作息的清醒节制，能极大提升身心的清明度。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "身体的清明与内心的安定息息相关，规律作息本身就是修行的保护伞。", "action": "今天尽量规律饮食、不过饱，感受身体轻安带来的专注力。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《阿含经》", "initials": "阿", "title": "善友即是一切梵行", "quote": "善知识、善伴党、善随从者，乃全梵行，非半梵行。", "zh": "阿难尊者曾问佛陀善友是不是修行的一半，佛陀纠正他：善友是修行的全部！与有正见和善意的人同行至关重要。", "source": "《杂阿含经》", "url": "https://84000.co/zh-tw", "insight": "环境与同行者的能量会深刻塑造我们的习气，要主动亲近清醒善良的伙伴。", "action": "约一位让你感到踏实、真诚的朋友喝杯茶或聊聊天，远离无谓的八卦消耗。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "不以目标为导向的出离", "quote": "佛教的出离，是因为看清它并非如其所显现的那样存在。", "zh": "如果因为讨厌失败而逃避世俗，那只是另一种执着；真正的出离是因为看透了名利游戏虚幻的本质，从而不再被它恐吓。", "source": "《人间是剧场》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "看穿游戏的规则，你依然可以在场上认真玩，却不再输不起。", "action": "今天尽力做好手头的事，但提前在心里放下对“必须赢”的执念。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "寂天菩萨", "initials": "寂", "title": "安忍：对抗嗔恚的盔甲", "quote": "若事尚可为，云何不欢喜？若已无可为，忧恼有何益？", "zh": "遇到困难时，如果还有办法解决，就该专心去解决而不必生气；如果已经无法改变，发脾气和焦虑只会雪上加霜。", "source": "《入菩萨行论》安忍品", "url": "https://84000.co/zh-tw", "insight": "这是佛门中最具实用主义精神的心理调节法，瞬间切断无意义的能量内耗。", "action": "面对今天一个既成事实的麻烦，问自己：能改吗？能就动手，不能就彻底翻篇。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《八万四千问》", "initials": "问", "title": "无住涅槃：不住轮回，不住寂灭", "quote": "既不住于轮回之苦，亦不住于偏空之寂灭，名为无住涅槃。", "zh": "大乘佛果不是找个安静角落永远躲起来，而是在看清万物空性的同时，依然保有在世间无限度化与行动的活力。", "source": "《八万四千问》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "出世的清明与入世的热忱并不矛盾，合起来才是完整的智慧。", "action": "保持内心安静的同时，积极投入今天最重要的一项创造性工作。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "死时带不走的密码与房产", "quote": "死亡的必然性在出生时就开始了，唯独业力与觉悟伴随我们。", "zh": "平时我们为账号、房产、头衔和面子耗尽心血，但在生命终结的那一刻，没有一样身外之物能随行，唯有心性的修养真正属于你。", "source": "《活着即是迈向死亡》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/living-is-dying-how-to-prepare-for-death-dying-and-beyond/", "insight": "经常以终局的视角反观当下，许多琐碎的计较会立刻显得微不足道。", "action": "今天遇到小摩擦时，问自己：这件小事值得消耗我有限的生命能量吗？"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "84000 译经计划的初心", "quote": "让佛陀的教法跨越语言与地域，成为人类共同的精神遗产。", "zh": "宗萨仁波切发起的 84000 译经计划致力于将藏文大藏经译成现代语言，正如现代科技与开源精神一样，让智慧自由流动。", "source": "84000 佛典传译计划", "url": "https://84000.co/zh-tw", "insight": "伟大的事业往往需要跨越数代人的耐心，种下善因而不急于一时收割。", "action": "花十分钟阅读一段经典原文或高质量译文，与千年智慧直接对话。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "《AI时代佛教弘化》论文", "initials": "慧", "title": "媒介静默：放下工具的练习", "quote": "定期安排媒介静默环节，使人暂时放下技术工具，反思自身与技术的关系。", "zh": "信息推送越精准，人越容易沦为多巴胺的奴隶；主动设立一段无屏幕、无算法的“静默时间”，能快速恢复元认知能力。", "source": "《人工智慧（AI）時代下佛教弘化變革、機遇與應對初探》", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "沉默不是信息匮乏，而是让散落各处的注意力重新回家的过程。", "action": "今天安排一次 30 分钟的“无屏幕散步”或安静喝茶，不听音频也不看手机。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "达赖喇嘛 · 科技与冥想峰会", "initials": "觉", "title": "以正念与慈悲使用科技", "quote": "技术本身并非问题所在，问题在于我们以何种心念去使用它。", "zh": "同样的网络与 AI，以贪嗔和攀比去用，只会放大孤独与焦虑；以慈悲和正念去用，它就能成为连接善意、消除痛苦的桥梁。", "source": "《AI时代佛教弘化》引2016科技峰会", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "科技是人类心性的放大器，先调柔自己的心，再启动强大的工具。", "action": "每次打开工作软件前，先默念一次今天想要传递的善意或解决的真实问题。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "《十字路口的猪》：生死之间的幽默", "quote": "用黑色幽默直面无常与生死，在十字路口重新看清方向。", "zh": "宗萨仁波切常通过电影与艺术探讨生死，提醒我们在忙碌奔波的人生十字路口，不妨停下来笑着审视自己的执念。", "source": "诚品电影院专题 · 《十字路口的猪》", "url": "https://meet.eslite.com/tw/tc/article/202409230005", "insight": "幽默感往往来自能够跳出“自我”的视角，旁观自己这场戏的荒诞与可爱。", "action": "今天遇到一件尴尬或狼狈的小事时，试着像看喜剧一样对自己笑一笑。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "修“止”是为了重获控制力", "quote": "通过修止获得某种自我控制力，进而学会欣赏生活中的每一刻。", "zh": "许多人以为禅修必须彻底消灭念头才算成功；其实最初修“止”，只是为了让我们不再被情绪的野马拖着狂奔，重拾心的主权。", "source": "《人间是剧场》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "当你能把注意力从焦虑拉回呼吸一秒钟，你就已经赢回了自由。", "action": "设定一个小闹钟，每当它响起，只做一件事：专心感受三次完整的吸气与呼气。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "佛教是民主的：真理不属于垄断者", "quote": "佛陀从不要求盲从，一切结论都由你自己去观察验证。", "zh": "佛法不建立在神权权威之上，每个人都拥有同等的佛性与判断力；连佛陀的话也要像试验真金一样经过火烧与敲打再接受。", "source": "新浪专访《佛教是民主的》", "url": "https://news.sina.cn/sa/2011-11-18/detail-ikmyaawa3571708.d.html?vt=4", "insight": "不依赖外部权威的背书，而是培养自己独立洞察实相的眼睛。", "action": "今天读到任何权威言论时，先结合实际经验思考它是否合乎缘起与逻辑。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "印顺法师 · 印慈法师", "initials": "印", "title": "中第二支箭：情绪的抗拒", "quote": "身苦如第一支箭，心不甘愿与嗔恚焦躁则是第二支箭。", "zh": "生活中的病痛、堵车或失误是客观发生的第一支箭；真正把我们击垮的，往往是内心不断抱怨“为什么是我”的第二支箭。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "如实地承认第一支箭的存在，就能立刻止住自己射出第二支箭。", "action": "今天遇到小倒霉事时，练习只处理事实本身，不附加“真烦人”的情绪加戏。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《近乎佛教徒》", "initials": "正", "title": "苦谛的三层面貌：苦苦、坏苦、行苦", "quote": "不仅痛苦是苦，快乐因无常而消逝是坏苦，一切迁流变化皆含行苦。", "zh": "理解了“坏苦”，就不会在顺境时忘乎所以；理解了“行苦”，就能看透世俗表象下的脆弱，从而生起更稳固的平常心。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "快乐时保持一份温柔的清醒，反而能让你更纯粹地享受当下而不至于执迷。", "action": "今天开心时告诉自己：“真好，但我也知道它终会流转变化。”"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "超越时间与空间的无常观", "quote": "无常只是相对真理，真正的觉悟者能超越对常与无常的二元执着。", "zh": "在世俗层面，承认“诸行无常”能破除僵化与执着；但在究竟层面，不把“无常”变成新的焦虑源头，才能真正得到大自在。", "source": "新浪专访《佛教是民主的》", "url": "https://news.sina.cn/sa/2011-11-18/detail-ikmyaawa3571708.d.html?vt=4", "insight": "不要用“一切都会坏掉”来吓唬自己，而要用“一切都能更新”来释放自己。", "action": "用“流动”代替“失去”来描述今天发生的一件变化。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《法句经》", "initials": "法", "title": "莫轻小善，水滴渐盈器", "quote": "莫轻小善，以为无福；水滴虽微，渐盈大器。", "zh": "智慧与福德从来不是一蹴而就的奇迹，而是每一天微小善念、每一句温柔话语和每一次清醒呼吸日积月累的结果。", "source": "《法句经》恶品", "url": "https://84000.co/zh-tw", "insight": "别小看每天五分钟的静坐或一次忍住不发火，水滴终将盈满大器。", "action": "今天就做一件微不足道但确定有益的小善事，比如顺手扶正倒下的物品。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《成佛之道》", "initials": "佛", "title": "自净其意：佛法的核心钥匙", "quote": "诸恶莫作，众善奉行，自净其意，是诸佛教。", "zh": "停止伤害（诸恶莫作）与积极助人（众善奉行）世间许多哲人都会讲，唯独“自净其意”——看破我执、净化贪嗔痴，才是佛法的独特核心。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "行为的端正只是起点，心念的清明与无执才是究竟的归宿。", "action": "今晚睡前花一分钟回顾今天：有没有哪一刻成功净化了自己的一个杂念？"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "善行让我们成为更好的佛教徒", "quote": "若能在四法印的正见之上再发展善行，便能走得更稳更远。", "zh": "正见是指南针，善行与道德是护栏；没有正见，善行容易带有交易感；而有了正见，善行就会变成自然流露的慈悲。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "智慧与慈悲从来不互相排斥，懂空性的人更懂得温柔待人。", "action": "今天在坚持原则的同时，尽量让自己的语气多一分暖意。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《阿含经》", "initials": "阿", "title": "如实知见：看到事物的本来面目", "quote": "如实知苦，如实知集，如实知灭，如实知道。", "zh": "痛苦往往源于我们只看自己想看的部分，编织了太多自我安慰或自我恐吓的故事；“如实知见”就是摘掉滤镜，直面事实本身。", "source": "《杂阿含经》", "url": "https://84000.co/zh-tw", "insight": "看清事实的那一刻，一半的心理内耗就已经自动消失了。", "action": "面对一件拖延已久的事，客观写下它的现状，不带任何自责或夸大。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "龙树菩萨", "initials": "龙", "title": "生死与涅槃，本无丝毫差别", "quote": "涅槃与世间，无有少分别；世间与涅槃，亦无少分别。", "zh": "若离开当下的生死烦恼去另找一个涅槃，就像离开波浪去找水一样荒谬；看清烦恼与念头的空性本质，当下便是清凉。", "source": "《中论》观涅槃品", "url": "https://84000.co/zh-tw", "insight": "不必等生活变得毫无波澜才开始修行，波浪本身就是水。", "action": "今天遇到情绪起伏时，不逃避，试着在波浪中辨认出“水”的平静本质。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "相对之我：只是一个标签", "quote": "相对上的我，只是以一个标识、标签的形式存在，并没有坚实本质。", "zh": "月称菩萨在世俗中接受“我”这个称呼，就像我们用“苹果”指代红果子；但若把这个标签当成永恒不变的主宰者，一切自私与恐惧就由此而生。", "source": "《入中论讲记》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "学会灵活使用“我”这个代词，但别被这个代词绑架了情绪。", "action": "今天当有人批评你的作品或观点时，记住他评价的只是一个作品，而不是永恒的“你”。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "美丽与丑陋的空性", "quote": "因为没有天生固定的美与丑，空性才同时具有成为美与丑的可能。", "zh": "如果美是事物本身固有的属性，那全世界每个人都会对同一个东西产生完全相同的美感；正因为万法无自性，甲之蜜糖才可能是乙之砒霜。", "source": "《佛教的见地与修道》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "理解了主观投射的空性，就能极大减少“为什么你和我审美/三观不同”的争吵。", "action": "今天听到不同意见时，在心里说：“这只是不同因缘下的不同显现。”"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "月称菩萨", "initials": "月", "title": "无始无终空：不执着于轮回长度", "quote": "散谓有可放，及有可弃舍；无散谓无放，都无可弃舍。", "zh": "我们常觉得要把心里的坏念头“扔出去”、把好念头“抓进来”；但《入中论》指出，万法本性空寂，根本没有一个实在的垃圾需要你费力丢弃。", "source": "《入中论讲记》第196-197偈", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "越想用力赶走杂念，杂念越活跃；看清它本空，它自己就会散去。", "action": "静坐或发呆时，允许杂念自由来去，不迎也不拒。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "读《入中论》的两个结局", "quote": "读《入中论》若路走对了可以成佛，若路走错了会成很糟的律师。", "zh": "中观犀利的辩证法若用来破除自己的我执，便是成佛的利剑；若拿来在生活中处处挑刺、争辩输赢，便沦为傲慢的诡辩术。", "source": "《入中论讲记》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "智慧的武器永远应该先朝向自己的执着，而不是用来攻击他人。", "action": "今天一旦发现自己想用道理压倒别人，立刻停下来微笑收声。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "《金刚经》", "initials": "金", "title": "凡所有相，皆是虚妄", "quote": "凡所有相，皆是虚妄；若见诸相非相，即见如来。", "zh": "一切外在的名声、头衔、成败与外貌，都是因缘暂聚的幻相；不被这些表象的得失所迷惑，就能看见事物的真相。", "source": "《金刚般若波罗蜜经》", "url": "https://84000.co/zh-tw", "insight": "看穿“虚妄”不是否定现象的存在，而是不被它虚张声势的表面吓倒。", "action": "今天面对一个看似光鲜或令人畏惧的头衔时，看清他也是一个普通的有情众生。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "深观与隐微：中观与般若", "quote": "中观是建立正见的深奥理论，般若则是令其落地证悟的实践。", "zh": "就像一枚硬币的两面，中观帮我们用理性扫除“实有”的错觉，般若则引导我们在直接体验中安住于无分别智。", "source": "《入中论讲记》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "理性思辨与直觉体验相辅相成，缺一不可。", "action": "读完一段理论后，闭眼三十秒，把概念放下，单纯感受当下的存在。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "《华严经》", "initials": "华", "title": "一即一切，一切即一", "quote": "一微尘中含十方，一切尘中亦如是。", "zh": "因为万物皆是缘起相依、没有孤立边界，一粒微尘、一杯茶水里，都蕴含着太阳、雨水、土地与无数人的因缘协作。", "source": "《大方广佛华严经》", "url": "https://84000.co/zh-tw", "insight": "看见万物之间的深层连接，孤独感与疏离感就会自然消融。", "action": "看着桌上的一样日常物品，在心里默数它背后连接的至少五种自然与人类因缘。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "略过前行，就像开拼装车上路", "quote": "前行修持并非入门门槛，而是历代大成就者终身不辍的基本功。", "zh": "许多学佛者急着追求高深玄妙的密法或禅定体验，却忽略了观修无常、出离心与菩提心这些“前行”；没有稳固地基，高阶修行也只是空中楼阁。", "source": "《不是为了快乐》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "在任何领域，真正的大师都极其敬畏并反复打磨最基础的基本功。", "action": "回到你当前领域最基础、最枯燥但最重要的那项基本功，认真打磨二十分钟。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《成佛之道》", "initials": "佛", "title": "五戒：尽形寿的护生之约", "quote": "皈依是志向三宝的信愿，受五戒则是归向三宝的实行。", "zh": "不杀生、不偷盗、不邪淫、不妄语、不饮酒，前四者本就是世间普遍的良知与底线，不饮酒则是为了护持神智清醒不失正念。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "守住清醒的头脑与不伤害的底线，是一切世间幸福与出世智慧的共同起点。", "action": "今天在饮食、作息与言语上保持清醒节制，不放纵自己的冲动。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "印顺法师 · 印慈法师", "initials": "印", "title": "信智合一：不止于羡慕功德", "quote": "只羡慕持戒的功德而持戒，并不理想；还要通达持戒的理性意义。", "zh": "做善事或守规矩不能只为了“积福报、换好运”的功利心；明白它能减少自他痛苦、长养心性清明，行动才会持久且自在。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "从“功利交换”升级为“理性慈悲”，是修行真正成熟的标志。", "action": "今天做一件有益的事时，单纯因为它本身是对的、善的，不去盘算回报。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《成佛之道》", "initials": "佛", "title": "念佛与修止：随念分别的妙用", "quote": "将佛陀的光明相好或功德清晰安住于心，即能由念起定。", "zh": "心习惯了到处乱跑，若能给它一个清净稳定的所缘境（如呼吸、一声佛号或佛像的庄严），散乱的心就能逐渐安顿下来。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "专注不是硬憋着不动，而是温柔地把注意力一次次带回一个锚点。", "action": "给今天的自己选一个“正念锚点”（比如呼吸或脚步），走神时温柔带回即可。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "把朋友放到架子上？检视执着式的爱", "quote": "世俗的爱常藏着占有欲：想把对方放到架子上，需要时随时取用。", "zh": "我们在关系里感到痛苦，往往不是因为爱得太深，而是因为对方没有按照我们的期望和需求来配合演出。", "source": "《人间是剧场》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "真正的爱尊重对方的独立与无常，不把伴侣或朋友当作满足自我安全感的道具。", "action": "今天试着无条件赞赏身边亲友的一个特点，不附带任何“如果你能更……就好了”的尾巴。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《八万四千问》", "initials": "问", "title": "出离心不是讨厌世界", "quote": "出离并非厌世或冷漠，而是看清轮回无法提供究竟满足后的清醒转身。", "zh": "带着怨气离开生活叫逃避；带着感恩与清醒看透世俗执着的局限，才叫出离。这样的人反而能更从容地生活。", "source": "《八万四千问》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "当你不再指望外界给你永久的安慰，你反而能更温柔地对待这个不完美的世界。", "action": "停止抱怨今天的天气、交通或环境，接受它本来的样子并专注当下。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《成佛之道》", "initials": "佛", "title": "引业与满业：决定与可变的智慧", "quote": "微小的善恶不断积累，终成改变生命流向的强大力量。", "zh": "生命中有些大框架（引业）虽已形成，但其中的具体体验与品质（满业）仍可通过当下的善行与觉悟不断改善。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "既有接纳现状的胸怀，又有随时随地改善微末细节的行动力。", "action": "选一件目前虽然大局已定但细节还能优化的小事，用心把它做好。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "四无量心：慈、悲、喜、舍", "quote": "愿众生具足乐及乐因（慈），愿众生永离苦及苦因（悲）。", "zh": "再加上为他人的成就真心欢喜（喜），以及不因亲疏好恶而偏私的平等心（舍），这四颗心能彻底融化狭隘的自我中心。", "source": "《不是为了快乐》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "尤其难修的是“喜无量心”——对别人的成功不嫉妒，真心随喜，福报最大。", "action": "今天看到别人取得成绩或好消息时，在心里真诚地说一句：“太好了，随喜你！”"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "《人间是剧场》：演好这一场戏", "quote": "人生如同一场戏，觉悟者知道剧本是假的，却依然认真而慈悲地演出。", "zh": "既然知道这是一场无常的舞台剧，就不必因为演到反派或遭遇低谷而崩溃；抽离出一双旁观者的眼睛，生活立刻变得轻盈而有趣。", "source": "《人间是剧场》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "入戏而不迷失，认真而不较真，是应对复杂人生的最高智慧。", "action": "今天遇到棘手的冲突时，在心里默念：“好吧，这场戏的剧情转折来了，看我怎么优雅接招。”"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "为死亡做准备：现在就开始练习放下", "quote": "如果你不想经历死亡时的手足无措，就必须在活着的时候练习放下。", "zh": "每天晚上入睡前，其实都是一次微型的“死亡预演”——放下白天的所有身份、担忧、恩怨与未竟之事，安住于清明与宁静中。", "source": "《活着即是迈向死亡》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/living-is-dying-how-to-prepare-for-death-dying-and-beyond/", "insight": "睡前放下得越彻底，醒来时心就越清亮；这也正是临终自在的最好训练。", "action": "今晚闭眼前，把手机放到远一点的地方，观想今天的一切已经圆满落幕。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "《AI时代佛教弘化》论文", "initials": "慧", "title": "数码佛法中的“元认知”", "quote": "在算法推荐与快速反馈中，保持对自己念头与注意力的觉察。", "zh": "现代软件擅长劫持我们的多巴胺与注意力；佛教的“正念”正是最高级的元认知训练，让你在手指划向屏幕前先看清自己的空虚或焦躁。", "source": "《人工智慧（AI）時代下佛教弘化變革、機遇與應對初探》", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "觉察力就是防沉迷系统：当你看见自己“正在无意识刷手机”时，觉知已经恢复。", "action": "今天每次解锁手机前，先问自己一句：“我此刻打开它想找什么？”"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "AI 无法替代的人师与心传", "quote": "文字与知识可以由机器整理，但打破我执的当头棒喝仍需人与人的相遇。", "zh": "AI 可以一秒总结整部大藏经，却不会在你执着傲慢时给你一个恰到好处的沉默或玩笑；修行的核心永远是心性的真实碰撞。", "source": "《人工智能与佛教》 · 《AI时代佛教弘化》", "url": "https://siddharthasintent.org/news/ai-and-buddhism/?lang=zh-hans", "insight": "把重复性的检索交给工具，把宝贵的时间留给真实的生命交流与内观。", "action": "今天和一位真实的朋友面对面或语音深入聊十分钟，不看任何消息弹窗。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "《AI时代佛教弘化》论文", "initials": "慧", "title": "“贤二”与“普渡观音”的启示", "quote": "机器僧与数字道场是弘法的媒介场域，目的仍是引导人走向内心觉醒。", "zh": "无论是龙泉寺的机器僧“贤二”，还是京都高台寺的“普渡观音 Mindar”，本质都是顺应时代因缘的善巧方便（手指），而非究竟的月亮。", "source": "《人工智慧（AI）時代下佛教弘化變革、機遇與應對初探》", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "形式可以随着科技不断革新，但“缘起、无我、慈悲”的内核千年不变。", "action": "借助今天的一个现代便利工具完成任务后，把省下来的时间用来安静呼吸或阅读。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "庄周梦蝶与生死的幻化", "quote": "不知周之梦为蝴蝶与？蝴蝶之梦为周与？", "zh": "在《活着即是迈向死亡》中，仁波切引用庄子的比喻提醒我们：对“唯一真实身份”的固执，正是恐惧失去的根源；看淡边界，心自安然。", "source": "《活着即是迈向死亡》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/living-is-dying-how-to-prepare-for-death-dying-and-beyond/", "insight": "我们所紧抓的“我是谁”，在更宏大的时间尺度里不过是一段短暂的梦境。", "action": "今天试着用更轻盈、更少防御的心态去面对一次意外的变化。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "不要把佛法变成“好人俱乐部”", "quote": "佛法关注的首先是智慧与正见，而不只是世俗的道德说教。", "zh": "世间几乎所有宗教与文化都教人做好人；佛陀的独特贡献在于指出：如果不破除对“恒常自我”的无明执着，哪怕做好事也依然会在烦恼中打转。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "行善是基础，但看穿自我的虚幻才是彻底解脱的钥匙。", "action": "做一件好事后，立刻在心里忘掉“我是那个好人”，不留任何道德优越感。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《成佛之道》", "initials": "佛", "title": "人身难得：生命中最宝贵的枢纽", "quote": "得生人身为解脱之枢纽，善用之则趋向圣道，误用之则增诸苦恼。", "zh": "人类既有足够的理性去思辨真理，又有面对苦乐的深切感受，这正是修行最理想的“黄金窗口”；切莫在浑浑噩噩中空耗时光。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "拥有清醒的认知与行动自由，本身就是极其稀有的福报。", "action": "今天花十分钟做一件真正滋养心智、而非单纯消磨时间的事。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "正见是所有行为的隐形舵手", "quote": "是这个‘见’，在不知不觉中决定了我们的动机与行动方向。", "zh": "你相信世界是竞争零和还是缘起相依，决定了你如何对待同事、家人与陌生人；改变见地，行为的质地就会自然改变。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "与其强迫自己改变表面行为，不如先更新底层的世界观。", "action": "遇到竞争焦虑时，提醒自己：众生与我是缘起相依的共同体，并非零和博弈。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《法句经》", "initials": "法", "title": "不放逸是不死之道", "quote": "不放逸是不死道，放逸是死径；不放逸者不死，放逸者犹如尸。", "zh": "“放逸”就是任由心智被感官刺激、懒散与惯性牵着走；“不放逸”则是时刻保持温柔的警醒，清楚自己在想什么、说什么、做什么。", "source": "《法句经》不放逸品", "url": "https://84000.co/zh-tw", "insight": "清醒地活着一小时，胜过糊里糊涂地打发一整天。", "action": "在工作切换的间隙站起来伸展一下，觉察此刻身体的感受与呼吸。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《成佛之道》", "initials": "佛", "title": "世俗正法与胜义正法", "quote": "依文字经典阐明道理为世俗正法，内心亲证寂灭智慧为胜义正法。", "zh": "《大毗婆沙论》提醒我们，听闻背诵佛法只是“教正法”（世俗正法），唯有把它化为内心真实的定慧体验，才算触及“证正法”。", "source": "《AI时代佛教弘化》引《大毗婆沙论》", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "书架上的经典再多，不如心中真正消化并活出来的一句话。", "action": "选一句你最喜欢的智慧，今天只专注把它做到位。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "天眼与瞎子的蓝色比喻", "quote": "除非我们对现象有某种概念，否则那现象对我们而言根本不存在。", "zh": "天生失明的人没有“蓝色”的概念，所以蓝色不在他的经验世界里；同理，我们所坚信的“客观真实”，其实高度依赖于我们心识的概念投射。", "source": "《佛教的见地与修道》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "意识到“我所见只是我概念的投射”，能让我们对自己的偏见多一份谦卑。", "action": "当对一件事无比笃定时，留出 10% 的空间问：“有没有可能是我的认知盲区？”"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "月称菩萨", "initials": "月", "title": "无初无后际，如实观生死", "quote": "由无初后际，故说此生死，名无初后际，三有无去来。", "zh": "我们总想追问宇宙或痛苦“最初是从哪里开始的”；但中观指出，因为一切皆无自性，追问一个绝对的“第一因”本身就是概念的错觉。", "source": "《入中论讲记》第194偈", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "停止对“为什么偏偏是我”的无休止溯源，把精力收回到当下如何转化。", "action": "今天遇到烦恼时，不再反复追究“谁先开始的”，只问“现在怎么平息”。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "破除“心”的实有执着", "quote": "月称菩萨连‘三界唯心’中的那个‘心’，也不执为实有实体。", "zh": "有些人破除了外物的执着，却又把“心”或“意识”当成永恒不变的主宰；应成中观连这最后一座堡垒也一并拆解，归于彻底的缘起。", "source": "《入中论讲记》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "念头生起又灭去，并没有一个坚硬的“心核”坐在那里控制一切。", "action": "观察今天情绪的来去，你会发现找不到一个固定的“情绪制造者”。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "《金刚经》", "initials": "金", "title": "非法，非非法：破除对经典的执着", "quote": "法尚应舍，何况非法。", "zh": "佛陀说过的法如同渡河的木筏；一旦渡过了烦恼的河流，连木筏也要放下，不可背着木筏继续赶路。", "source": "《金刚般若波罗蜜经》", "url": "https://84000.co/zh-tw", "insight": "工具与方法是为了解决问题而存在的，不要把方法本身变成新的负担。", "action": "检视你正在使用的某套效率工具或规则，如果它反而制造了焦虑，果断简化它。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "五蕴与我：非一非异", "quote": "我和五蕴，既不是完全相同，也不是完全分开的。", "zh": "如果“我”就是身体和情绪，那身体衰老或情绪低落时“我”就碎了；如果“我”完全独立于身心之外，那又何必受身心生老病死的折磨？", "source": "《入中论讲记》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "既不完全等同于当下的坏情绪，也不逃避对身心的照料，这就是中道。", "action": "身体疲惫时好好休息，但提醒自己“疲惫的是身体，觉知疲惫的心本自清凉”。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《成佛之道》", "initials": "佛", "title": "温故知新：偈颂的记忆智慧", "quote": "后结集者，为令圣教久住，结嗢拕南颂。", "zh": "《瑜伽师地论》记载，古德将繁复的教法浓缩为简练的偈颂（嗢拕南），正是为了在信息洪流中帮助行人提纲挈领、长久受持。", "source": "《AI时代佛教弘化》引《瑜伽师地论》", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "在碎片化阅读时代，把核心智慧浓缩成几句常念在心的短偈，比收藏一万篇长文更管用。", "action": "从你喜欢的法语里选一句不超过二十字的话，设为今天的桌面或心里默念的座右铭。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "印顺法师 · 印慈法师", "initials": "印", "title": "和乐净：僧团与团队的基石", "quote": "依法以摄僧，和乐净为本，事和或理和，礼僧众中尊。", "zh": "无论是修行团体还是现代工作团队，长久和谐的根基在于共同遵守正直的法则（事和）与拥有相通的善意目标（理和）。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "真正的团队凝聚力不靠口号，而靠透明的规则与清净的共识。", "action": "今天在团队沟通中，主动把规则与期望对齐，减少无谓的猜疑与内耗。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "菩提心：把负能量转化为解脱道", "quote": "唯一能将负面念头与日常琐事转化为解脱道的，即是菩提心。", "zh": "噶玛·恰美仁波切说，没有菩提心，再大的善举也只是积攒世间福报；有了“为利众生”的发心，连洗碗、通勤和忍受委屈都成了成佛资粮。", "source": "《不是为了快乐》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "发心就像炼金术，能把日常平庸的铅块点化为金子。", "action": "做一件你平时觉得很枯燥的工作前，发个小愿：“愿这项工作能帮到使用它的人。”"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《成佛之道》", "initials": "佛", "title": "转轮圣王的德化之道", "quote": "以五戒十善教化世间，令社会安稳祥和。", "zh": "佛法并非只有出世间法，在世间层面它同样提倡以不伤害、诚实、清净与关怀为核心的“德化”秩序，使人人各安其位。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "好社会与好关系，始于每个人克制自己的贪嗔，多替他人想一步。", "action": "今天在公共场合或线上协作中，多为下一个使用的人留一点方便。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "不要做“灵性的懒惰者”", "quote": "不要用‘一切都是业力’来逃避当下应当承担的责任与改变。", "zh": "真正的因果观让人变得极度积极而负责：因为知道每一个起心动念都在塑造未来，所以更加谨慎且勇敢地对待当下。", "source": "《2014 相信因果业力（新加坡）》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "信因果不是宿命论，而是相信“此刻的努力必有回响”的行动哲学。", "action": "停止拖延一个你一直想改掉的问题，今天就迈出最小的第一步。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "死亡面前，一切都是平静的邀请", "quote": "在生命的最后一刻，能帮上忙的只有平时培养的觉知与放下。", "zh": "生前我们忙着积累各种“万一用得上”的东西，但临终时真正能带走的只有心的清净与习惯；早一点练习轻装简行，活着反而更自由。", "source": "《活着即是迈向死亡》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/living-is-dying-how-to-prepare-for-death-dying-and-beyond/", "insight": "向死而生不是悲观，而是帮你一眼看穿什么是真正重要的事。", "action": "列出今天最重要的两件事，先专注做好它们，其余杂事学会坦然舍弃。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "《AI时代佛教弘化》论文", "initials": "慧", "title": "MaRIS 教学：把闻思修融入数字学习", "quote": "将听闻、思辨与静心实践结合，避免数字化学习沦为浅层信息消费。", "zh": "数字时代最大的陷阱是“收藏即学会”；唯有经过自己的反复思辨（思）和在生活中的刻意练习（修），信息才会沉淀为智慧。", "source": "《人工智慧（AI）時代下佛教弘化變革、機遇與應對初探》", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "收藏夹里躺着一百篇文章，不如今天在日历笔记里写下两句真实心得。", "action": "读完今天这页日历后，在下方笔记栏写下 1 句你自己的真实感悟。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "佛教与现代教育的对话", "quote": "现代教育培养了大量职业技能，却很少教人如何面对痛苦与情绪。", "zh": "宗萨仁波切在探讨现代佛教教育时指出，真正的教育不仅要教孩子如何谋生，更要教他们理解无常、培养同理心与管理自心。", "source": "《现代教育与佛教的未来》专访", "url": "https://www.buddhistdoor.net/features/modern-education-and-the-future-of-buddhism-an-interview-with-dzongsar-khyentse-rinpoche/", "insight": "无论年龄多大，学习“如何与自己的情绪相处”都是终身必修课。", "action": "今天遇到焦躁时，不急着压制或发泄，像观察一位老朋友一样观察它的来去。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "结缚与解缚：松解生命的绳结", "quote": "整条宏伟的修行之道，都包含在‘松解缠结’这个简单表述中。", "zh": "我们用各种身份、计划、期待和爱恨把自己绑成死结，这就是轮回；而修道不是再打一个更漂亮的结，而是一根一根把绳结温柔地松开。", "source": "《2014 缘起相依（纽约）》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "少一点“我必须如何”，多一点“允许它自然发生”，绳结就会慢慢松动。", "action": "检查今天日程中让你感到紧绷的一件事，看看能不能主动降一点期待、松一口气。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "《AI时代佛教弘化》论文", "initials": "慧", "title": "正念钟声：在忙碌中按暂停键", "quote": "数字工具也可以成为唤醒正念的钟声，提醒我们回到呼吸。", "zh": "就像寺院里定时响起的钟声能让僧众停下脚步收摄身心，我们也可以利用手机提醒或呼吸间隙，在高效运转中守住内心的清明。", "source": "《人工智慧（AI）時代下佛教弘化變革、機遇與應對初探》", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "工具本身无善恶，能让你慢下来看清自己的工具，就是好工具。", "action": "利用今天每次喝水的机会，先停顿三秒感受水流过喉咙，再继续工作。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "佛教徒的“叛逆”：不信永恒", "quote": "若你认为有某样和合事物是永恒不变的，那便偏离了第一法印。", "zh": "四法印具有极强的解构力量：它不断提醒我们，健康、关系、名望乃至灵性体验都是暂时组合的，因此不必拼命抓紧。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "越想把美好的东西冻结成永恒，失去时的裂痕就越深。", "action": "今天享受一段好时光时，纯粹地投入当下，而不去担心它什么时候结束。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "印顺法师 · 印慈法师", "initials": "印", "title": "无常的微观真相：刹那生灭", "quote": "外在看似静止之物，内在组成成分的运动变化一刻也未曾停止。", "zh": "现代物理学印证了佛陀的洞察：看似坚固的桌椅与身体，在微观层面正以每秒亿万次的频率生灭迁流，没有一刻静止。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "连“现在的我”也与一分钟前的我截然不同，不必背着昨天的包袱走今天。", "action": "原谅昨天那个不够完美的自己，以全新的状态迎接今天。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《法句经》", "initials": "法", "title": "如实观照：如牧牛人护心", "quote": "心难调伏，轻躁随欲转；善调伏心者，是则引安乐。", "zh": "未经训练的心就像不受约束的野马，总在贪爱与厌恶间乱窜；温和而坚定地把心带回正念，是世间最大的安乐之源。", "source": "《法句经》心品", "url": "https://84000.co/zh-tw", "insight": "不是压抑念头，而是像牧牛人一样温柔地看着牛群，不让它们踩坏庄稼。", "action": "发现自己分心走神时，不自责，笑着把注意力拉回手头的事。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "正法与相似法：看本质而非包装", "quote": "真正重要的不是外在有多神圣，而是它能否削弱你的我执。", "zh": "如果某种修行让你变得越来越挑剔别人、越来越觉得自己高人一等，那多半是“自我”在借佛法壮大自己。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "检验一切修行的黄金标准只有一个：我执是不是变薄了，心是不是更柔软了？", "action": "今天练习放下一件你平时很执着的“我是对的”的坚持。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《成佛之道》", "initials": "佛", "title": "正法四胜：善、净、常、安乐", "quote": "正法妙难思，善净常安乐，依古仙人道，能入于涅槃。", "zh": "世俗快乐短暂且夹杂忧虑，唯有依循古今觉者共同走过的八正道，才能尝到清净、稳定且不伤害任何众生的安乐。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "真正的喜悦不需要以别人的失落或环境的消耗为代价。", "action": "今天寻找一件纯粹、安静、不伤害任何生命的快乐小事（如散步、听雨或阅读）。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "不制造新的参照点", "quote": "我们对身份、成就和评价的依赖，正是不断制造焦虑的参照点。", "zh": "自我感之所以存在，是因为我们不断通过比较、赞美或受害者叙事来确认“我是谁”；当参照点松动时，焦虑便无处附着。", "source": "《活着即是迈向死亡》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/living-is-dying-how-to-prepare-for-death-dying-and-beyond/", "insight": "少一次拿自己和别人比较，就多十分内心的清净空间。", "action": "今天刷到他人的高光时刻时，只送上祝福，不拿来当反衬自己焦虑的尺子。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《阿含经》", "initials": "阿", "title": "不染着六根：见色闻声止于当下", "quote": "于见止于见，于闻止于闻，于觉止于觉。", "zh": "眼睛看到画面、耳朵听到声音时，若能停留在纯然的感知，不立刻添油加醋编织“我喜欢/我讨厌”的故事，心就不会被外境牵走。", "source": "《杂阿含经》", "url": "https://84000.co/zh-tw", "insight": "事实往往只有一分，情绪故事却占了九分；把感知和解读分开，烦恼立减。", "action": "今天听到一句刺耳的话时，先把它当成纯物理的声波，停顿三秒再回应。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "别把“开悟”当成战利品", "quote": "试图把空性或解脱抓进自己口袋里，本身就是最隐蔽的贪婪。", "zh": "我们习惯了凡事都要“有所得”；但佛法恰恰是一场“减法”——不是给你增加一个神圣头衔，而是帮你卸下沉重的幻觉包袱。", "source": "《人间是剧场》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "当你不再急于向自己证明“我进步了”，真正的轻安反而会悄悄到来。", "action": "今天放下对“效率”或“自我提升”的焦虑，允许自己单纯地存在二十分钟。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "月称菩萨", "initials": "月", "title": "破四边生：不自生，不他生", "quote": "非自非他非共生，亦非无因随处生，故知诸法本无生。", "zh": "《入中论》开宗明义破斥“自生、他生、共生、无因生”四种执着：事物既不是自己生出自己，也不是由一个绝对他者创造，而是无自性的缘起显现。", "source": "《入中论讲记》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "理解“无生”，不是否定因果显现，而是看清没有任何事物能孤立诞生。", "action": "观察你今天取得的一个小成果，感谢背后促成它的所有团队与环境因缘。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "无我不是“自我被消灭了”", "quote": "无我并非把一个原本存在的自我杀掉，而是发现它本来就不存在。", "zh": "就像夜里把绳子误看成蛇而吓得半死；开灯看清它本来就是绳子时，并没有一条“蛇”被杀死了，只是错觉消失了。", "source": "《佛教的见地与修道》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "修行不是和自己打仗，而是开灯看清房间里根本没有鬼怪。", "action": "停止与自己的坏情绪硬碰硬对抗，试着用好奇的灯光去照亮它。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "《心经》", "initials": "心", "title": "以无所得故，心无挂碍", "quote": "以无所得故，菩提萨埵，依般若波罗蜜多故，心无挂碍。", "zh": "挂碍与恐惧，总是来自“怕失去已经得到的”和“怕得不到想要的”；唯有深悟万法无所得，心才能彻底远离颠倒梦想。", "source": "《般若波罗蜜多心经》", "url": "https://84000.co/zh-tw", "insight": "“无所得”不是消极躺平，而是全力以赴之后对得失的坦然。", "action": "今天完成一件重要任务后，练习在心里说一句：“尽心了，结果随缘。”"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "空性就是“一切皆有可能”", "quote": "正因现象没有固有的限制，才同时拥有无限转化的空间。", "zh": "如果一个人的性格或一段困境是铁板一块的“实有”，那永远不会有转机；正因为一切皆空、皆依条件而变，任何僵局都有松动的希望。", "source": "《佛教的见地与修道》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "空性是悲观主义的终结者，它是宇宙间最深沉的乐观主义。", "action": "面对目前最卡顿的一个项目，换一个微小的条件重新切入试试。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "龙树菩萨", "initials": "龙", "title": "真俗二谛：不坏世俗说胜义", "quote": "若不依俗谛，不得第一义；不得第一义，则不得涅槃。", "zh": "龙树菩萨提醒学人：必须尊重世俗的语言、因果、逻辑与伦理，才能以此为阶梯通达究竟的胜义空性；不可好高骛远、否定日常。", "source": "《中论》观四谛品", "url": "https://84000.co/zh-tw", "insight": "把眼前的工作、生活与人际关系踏实打理好，正是通往高远智慧的必经之路。", "action": "认真回复一封该回的邮件或整理好手边的一份文档，在世俗细节中修心。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "《维摩诘经》", "initials": "维", "title": "不二法门：默然无言的智慧", "quote": "乃至无有文字语言，是真入不二法门。", "zh": "世间争论常停留在“善恶、对错、动静、凡圣”的二元对立中；当语言概念穷尽、分别心歇息时，实相自然现前。", "source": "《维摩诘所说经》入不二法门品", "url": "https://84000.co/zh-tw", "insight": "有些深刻的理解与共鸣，发生在停止争辩之后的宁静沉默里。", "action": "今天在一次无效争论即将升温时，选择温和地保持沉默。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "连“佛性”也不要执为实体", "quote": "说佛性时，只是为了让你对净除烦恼生起信心；其实它与空性无别。", "zh": "如果你把佛性想象成胸口里一颗发光的金丹，那就又落入了常见；它其实是指心性本自清净、不受染污遮蔽的潜能与空间。", "source": "《究竟一乘宝性论讲记》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "不执着于任何神秘意象，保持开放、觉知与清明的空间感即可。", "action": "吸气时感受胸腔打开的空间感，呼气时放下紧绷的思虑。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "《金刚经》", "initials": "金", "title": "若见诸相非相，即见如来", "quote": "不取于相，如如不动。", "zh": "并不是要求你闭上眼睛不看世界，而是在面对各种赞美、诱惑、惊吓与变化时，内心不被表象勾走，保持如如不动的清明。", "source": "《金刚般若波罗蜜经》", "url": "https://84000.co/zh-tw", "insight": "外在可以忙碌应对千头万绪，内心深处却可以像深海一样安静不动。", "action": "在今天最忙碌的时段里，抽十秒钟觉察一下内心深处那个“如如不动”的旁观者。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《成佛之道》", "initials": "佛", "title": "三学次第：由戒生定，由定发慧", "quote": "戒能护持身语清净，定能令心专注安稳，慧能照破无明烦恼。", "zh": "戒、定、慧并非三个互不相干的科目，而是一条完整的因果链：生活有节制（戒），心才不容易散乱（定），心静了才看得清真相（慧）。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "如果觉得最近脑子乱、看不清方向，往往先从整理作息与减少消耗（戒）开始最有效。", "action": "今晚早睡半小时，减少睡前刷屏，用“戒”来滋养明天的“定”与“慧”。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "供养与积聚福德的意义", "quote": "积聚福德并非贿赂佛陀，而是借由慷慨松动自己吝啬与狭窄的习气。", "zh": "佛陀不需要我们的供品或赞美；当我们练习把好东西分享出去、真诚赞叹他人时，真正受益的是那颗逐渐变得宽广柔软的自己的心。", "source": "《不是为了快乐》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "慷慨是打破匮乏感最快的方法：当你敢于给予，潜意识就相信自己是丰盛的。", "action": "今天把一件好用的工具、一首好歌或一条有用的信息真诚分享给朋友。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《阿含经》", "initials": "阿", "title": "正语的四个标准", "quote": "真实、柔和、有益、适时——具足此四者方为正语。", "zh": "哪怕一句话是“真话”，但如果带着恶意（不柔和）、毫无用处（无益）或在对方情绪崩溃时说出（不适时），依然不是善巧的正语。", "source": "《中部》 · 《成佛之道》", "url": "https://84000.co/zh-tw", "insight": "真正的坦诚总是带着善意与分寸感，而不是把“我说话直”当成伤人的借口。", "action": "今天给别人提建议前，用“真实、柔和、有益、适时”四条标准先过滤一遍。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "寂天菩萨", "initials": "寂", "title": "精进：对善法的欢喜心", "quote": "精进并非咬牙切齿的苦熬，而是对善行与成长生起由衷的欢喜。", "zh": "把修行或工作当成苦差事，很快就会疲惫放弃；唯有看清它的意义并从中尝到清凉与愉悦，才能长久不懈地走下去。", "source": "《入菩萨行论》精进品", "url": "https://84000.co/zh-tw", "insight": "找回做一件有价值之事时最初的那份好奇与轻盈，比强迫自律更持久。", "action": "在今天的工作中找出一件最能帮到人的小环节，怀着愉悦的心情去完成它。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《成佛之道》", "initials": "佛", "title": "慈能予乐，悲能拔苦", "quote": "大慈与一切众生乐，大悲拔一切众生苦。", "zh": "慈悲不是高高在上的怜悯，而是深切的感同身受与实际行动：看到别人受苦时心生不忍并愿伸手分担，看到别人安乐时衷心欢喜。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "哪怕一句温暖的“辛苦了”，在别人疲惫时也能起到拔苦予乐的作用。", "action": "对今天为你提供服务的人（外卖员、司机、同事）真诚道一声谢。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "把上师当成镜子，而不是拐杖", "quote": "真正的善知识帮你看清自己的盲点，而不是替你做所有决定。", "zh": "依赖心理是修行路上的隐形陷阱；导师与经典是照出你执着的面镜子，照完之后，依然要靠你自己一步步走完自己的路。", "source": "《人间是剧场》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "独立思考与自我负责，是成年人精神成熟的核心标志。", "action": "遇到拿不准的小事时，先自己静心权衡因果，再参考他人意见。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《八大人觉经》", "initials": "觉", "title": "常念布施，不念旧恶", "quote": "生死炽然，苦恼无量，发大乘心，普济一切，不念旧恶，不憎恶人。", "zh": "记仇就像手里攥着一块烧红的炭想扔向别人，最先烫伤的永远是自己；放下旧怨，是对自己心灵最大的慈悲与释放。", "source": "《佛说八大人觉经》", "url": "https://84000.co/zh-tw", "insight": "原谅不是纵容错误，而是决定不再让过去的烂事继续消耗今天的自己。", "action": "想起一个让你耿耿于怀的旧事，在呼气时试着把那口闷气吐出去。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《成佛之道》", "initials": "佛", "title": "禅定：于善所缘，心一境性", "quote": "远离散乱与昏沉，将心平稳安住于单一清净的目标上。", "zh": "现代人最常处于“散乱”（想太多）或“昏沉”（刷手机麻木）两极；禅定训练的就是不紧不松、清醒而专注的“中道心力”。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "专注力是最稀缺的现代生产力，也是最基础的禅修功夫。", "action": "今天选定一个 25 分钟的番茄钟时段，只做一件事，关闭所有弹窗提醒。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "科技便利与宗教深度的平衡", "quote": "以正念与元认知为导向，让科技服务于专注与省察，而非分散心神。", "zh": "在这个随时随地都能被信息流打断的时代，我们需要有意识地重塑自己的数字环境：关掉无关推送，把注意力当成最珍贵的修行资源。", "source": "《人工智能与佛教》 · 《AI时代佛教弘化》", "url": "https://siddharthasintent.org/news/ai-and-buddhism/?lang=zh-hans", "insight": "你的注意力投向哪里，你的生命就在哪里生长。", "action": "今天顺手取消关注或静音 3 个只会制造焦虑、毫无营养的资讯号。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "每天五分钟的“死亡冥想”", "quote": "如果今天是我生命的最后一天，我还会为这件小事发火吗？", "zh": "在藏传佛教中，忆念无常与死亡不是晦气，而是最锋利的清醒剂——它能瞬间帮你剔除 80% 不重要的人际内耗与虚荣攀比。", "source": "《活着即是迈向死亡》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/living-is-dying-how-to-prepare-for-death-dying-and-beyond/", "insight": "死亡提醒我们：时间有限，爱与清明要趁现在。", "action": "如果今天有想对家人说却一直没说出口的暖心话，今天就说吧。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "《AI时代佛教弘化》论文", "initials": "慧", "title": "“佛系”不是躺平，而是不执着", "quote": "以‘无我’破除算法茧房的自我中心，以‘中道’应对技术焦虑。", "zh": "真正的佛教智慧（BI）既不盲目崇拜技术万能，也不恐慌排斥科技进步，而是在高速变化中保持内心的定力与对他人的慈悲。", "source": "《人工智慧（AI）時代下佛教弘化變革、機遇與應對初探》", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "外在节奏可以很快，但内在做决定的那一刻可以很慢、很稳。", "action": "遇到紧急消息时，先数三个呼吸再打字回复，避免情绪化反应。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "生活处处是曼陀罗（坛城）", "quote": "只要带着觉知，日常生活的每一个角落都可以成为修行的坛城。", "zh": "不必非要去庄严的寺院才能静心；当你全神贯注地泡一杯茶、擦干净一张桌子、倾听一位朋友的烦恼时，当下便是神圣的坛城。", "source": "《八万四千问》 · 《人间是剧场》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "神圣感不在远方的名山大川，而在你对此时此刻投入的觉知深度。", "action": "选一件日常小事（如泡茶或整理书桌），放慢动作，用仪式感全神贯注地完成它。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "温柔地接纳自己的“半吊子”", "quote": "我们都是近乎佛教徒，在清醒与迷糊之间反复摇摆着前行。", "zh": "不必因为今天又发了脾气或走了神就彻底否定自己；修行本来就是跌倒、觉察、爬起、再继续的螺旋上升过程。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "能觉察到自己“刚才又迷糊了”，恰恰说明清醒的那部分已经醒来了。", "action": "如果今天没能完美守住情绪，笑着对自己说一句：“看见了，下次再练！”"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "《阿弥陀经》 · 宗萨仁波切", "initials": "阿", "title": "一心不乱：净土就在当下的清净心", "quote": "执持名号，若一日乃至七日，一心不乱。", "zh": "宗萨仁波切讲《阿弥陀经》时指出，超越分别与散乱的专注，就是净土的显现；在纷乱的世界里守住一刻纯粹的善念与专一，即是圆满。", "source": "《2010年宗萨钦哲仁波切说阿弥陀经》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "专心致志做好眼前一件善事，就是最踏实的净土功夫。", "action": "今晚睡前静坐两分钟，把一天的善念与感恩回向给所有亲友与众生。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《法句经》", "initials": "法", "title": "如岩不动：风吹不动智者心", "quote": "譬如大石山，不为风所动；智者亦如是，毁誉不动心。", "zh": "赞美来时飘飘然，批评来时立刻自我怀疑或暴怒，都是因为心没有锚定在实相上；看清得失无常，心就能如大山般安稳。", "source": "《法句经》智者品", "url": "https://84000.co/zh-tw", "insight": "真正的自信不是“我永远是对的”，而是“无论被夸还是被批，我都清楚自己在做什么”。", "action": "今天听到任何评价时，只提取其中有建设性的信息，过滤掉情绪标签。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "轮回的本质：习惯性的重复", "quote": "轮回不是一个地理位置，而是我们不断重复无明习气的心理模式。", "zh": "哪怕换了新城市、新工作或新伴侣，如果内在执着与逃避的模式没有改变，很快又会在新环境里演起一模一样的苦戏。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "跳出轮回从打破一个小小的惯性反应开始，而不是等换一个外部环境。", "action": "找出你总是在不同关系或项目中重复踩的同一个坑，今天换一种方式回应它。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "《成佛之道》", "initials": "佛", "title": "世间无常，国土危脆", "quote": "世间无常，国土危脆，四大苦空，五阴无我。", "zh": "这并非消极厌世的叹息，而是帮我们看清外在依托的脆弱性，从而把精力从盲目囤积转向培养带得走的内在智慧。", "source": "《八大人觉经》 · 《成佛之道》", "url": "https://84000.co/zh-tw", "insight": "看清船是木头做的早晚会旧，就会更懂得珍惜航行中的风景，而不执着于船本身。", "action": "盘点一下你目前最依赖的三种外部安全感，思考如果少了一种你还能如何从容应对。"}, {"theme": "seals", "themeLabel": "四法印与正见", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "真理不需要华丽的包装", "quote": "幸运饼干里的纸条看看就算了，四法印却是需要用一生去咀嚼的真理。", "zh": "别把佛法名言当成朋友圈里转发的“心灵鸡汤”；哪怕一天只真正思惟透彻其中一句话，也胜过囫囵吞枣读完十本书。", "source": "《近乎佛教徒》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/what-makes-you-not-a-buddhist/", "insight": "深度学习的秘诀在于“慢下来反复咀嚼”，直到它变成你的直觉。", "action": "今天不急着追求新资讯，把本周最触动你的一条日历智慧再细读一遍。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "《金刚经》", "initials": "金", "title": "三轮体空：无我相、无人相、无众生相", "quote": "菩萨于法，应无所住行于布施。", "zh": "做一件善事或帮别人一个忙，如果心里一直惦记着“我帮了你、你欠我人情”，这份善行就有了边界；施者、受者与所施之物皆无执着，才是圆满。", "source": "《金刚般若波罗蜜经》", "url": "https://84000.co/zh-tw", "insight": "帮完人就彻底忘掉这件事，心里最轻松，福报也最纯粹。", "action": "今天帮完别人一个忙后，不要期待对方说谢谢，直接转身去做下一件事。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "二元对立的陷阱：好与坏的标签", "quote": "见到一件事物是二元对立，而超越对立见到一切的互相依存才是空性。", "zh": "我们的大脑天生喜欢把世界切成“我喜欢的”和“我讨厌的”两半；而智慧正是看清这两半其实是同一个整体不可分割的两面。", "source": "《佛教的见地与修道》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "没有黑夜就没有白昼，没有挑战也就没有成长；学会同时接纳硬币的两面。", "action": "对你今天遇到的一件麻烦事，试着找出它可能带来的一个意想不到的益处。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "龙树菩萨", "initials": "龙", "title": "不依文字，亦不离文字", "quote": "诸佛依二谛，为众生说法；一以世俗谛，二第一义谛。", "zh": "虽然究竟实相超越语言，但如果不借助日常的语言文字来沟通引导，人们就无法迈出第一步；重点是借船过河，而非抱着船不放。", "source": "《中论》观四谛品", "url": "https://84000.co/zh-tw", "insight": "尊重好书与好老师的话语，但最终要在自己的生活实境里去体会无言的真相。", "action": "阅读经典时，每读几行就停下来合上书，消化十秒再往下看。"}, {"theme": "madhyamaka", "themeLabel": "中观与空性", "author": "《心经》", "initials": "心", "title": "色不异空，空不异色", "quote": "色不异空，空不异色；色即是空，空即是色。", "zh": "现象（色）与本质（空）并非两件分开的东西——就像黄金与金戒指的关系，离开金子没有戒指，离开当下的生活也没有空性。", "source": "《般若波罗蜜多心经》", "url": "https://84000.co/zh-tw", "insight": "不要去生活之外寻找神秘的“空性”，眼前的杯子、呼吸和工作就是它的显现。", "action": "看着眼前正在发生的一切，体会“现象本身就是流动的空性之舞”。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "《成佛之道》", "initials": "佛", "title": "十善业道：身三、口四、意三", "quote": "不杀、不盗、不邪淫；不妄语、不两舌、不恶口、不绮语；不贪、不嗔、不痴。", "zh": "十善业几乎涵盖了现代人提升幸福感与人际信任的全部秘密，尤其是“意业”的贪嗔痴管理，直接决定了我们的心理健康。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "语言上的“不两舌（不挑拨）、不恶口（不伤人）”最容易在日常人际中修习。", "action": "今天只说建设性、让人安心的话，绝不在背后议论任何人的短处。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "发愿的力量：先设定方向", "quote": "即使现在还做不到，反复发愿也能在阿赖耶识中种下强大的种子。", "zh": "不要因为觉得“我还是个凡夫，发菩提心太虚伪了”而退缩；就像学乐器前先定下目标，真诚的发愿会慢慢重塑你的潜意识与行为。", "source": "《不是为了快乐》 · 《活着即是迈向死亡》", "url": "https://khyentsefoundation.org/chs/collections/words-from-rinpoche-chs-2/", "insight": "愿望是种子，行动是浇水；今天种下良善的愿心，未来自会开花。", "action": "早上出门或开始工作前，花十秒钟在心里定下今天一个善良的发愿。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "印顺法师 · 印慈法师", "initials": "印", "title": "身心相应：照顾好自己的情绪气象", "quote": "身与心密切关联，长期陷入贪嗔痴的躁扰，身体也会跟着生病。", "zh": "现代人的许多焦虑与疲惫，源自内心长期在“担心得不到”和“害怕失去”之间剧烈拉扯；调伏贪嗔，其实是最好的养生。", "source": "《成佛之道全集讲义》", "url": "https://gemini.google.com/notebook/c335fe0f-2968-47c6-80ad-289bc8b17eb7", "insight": "心理的松弛与知足，往往比任何昂贵的保健品更能滋养生命。", "action": "感到肩膀或眉头紧绷时，有意识地松开它们，伴随一次长长的呼气。"}, {"theme": "path", "themeLabel": "成佛之道与戒律", "author": "寂天菩萨", "initials": "寂", "title": "忍辱的真正老师是“逆境”", "quote": "若无敌害者，忍辱从何生？故敌如宝藏，助我修安忍。", "zh": "如果身边每个人都对你百依百顺，你永远不知道自己修养如何；那个故意刁难你的人，恰恰是给你提供实战考场的老师。", "source": "《入菩萨行论》安忍品", "url": "https://84000.co/zh-tw", "insight": "把难缠的对手看作磨刀石，心里的怨气就会变成成长的定力。", "action": "今天遇到一个难沟通的对象时，在心里感谢他帮你练习耐心与情绪稳定。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "在信息过载时代守住“闻思修”", "quote": "若没有自己的思考与静修，再多的资讯也只是噪音。", "zh": "现代人每天接收的信息量超过古人一辈子，但智慧却未必同步增长；唯有通过停顿、消化与践行，外在资讯才能化为内在定力。", "source": "《现代教育与佛教的未来》", "url": "https://www.buddhistdoor.net/features/modern-education-and-the-future-of-buddhism-an-interview-with-dzongsar-khyentse-rinpoche/", "insight": "宁可精读十句、践行一句，也不要囫囵吞枣刷一百条短信息。", "action": "今晚把手机调成静音或勿扰模式一小时，专心读几页书或安静陪家人。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "《AI时代佛教弘化》论文", "initials": "慧", "title": "佛光云宇宙与数字共修的边界", "quote": "数字场域能打破时空限制，但仍需回归真实生活中的身口意清净。", "zh": "线上共修、播客听法与数字日历都是极好的辅助工具，但屏幕不能替代现实中的善行——真正的道场永远在你与身边人相处的当下。", "source": "《人工智慧（AI）時代下佛教弘化變革、機遇與應對初探》", "url": "https://religion.tcu.edu.tw/wp-content/uploads/2025/10/%E3%80%90%E6%9C%83%E5%BE%8C%E4%BF%AE%E8%A8%82%E3%80%914-A1_%E9%87%8B%E8%80%80%E7%B7%A3%E9%87%8B%E8%81%96%E5%9B%A0_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%EF%BC%88AI%EF%BC%89%E6%99%82%E4%BB%A3%E4%B8%8B%E4%BD%9B%E6%95%99%E5%BC%98%E5%8C%96%E8%AE%8A%E9%9D%A9%E3%80%81%E6%A9%9F%E9%81%87%E8%88%87%E6%87%89%E5%B0%8D%E5%88%9D%E6%8E%A2.pdf", "insight": "线上汲取养分，线下扎根结果，两者结合才不会沦为空谈。", "action": "把今天在屏幕前读到的这份清净感，带到待会儿见到第一个人的微笑里。"}, {"theme": "mindful", "themeLabel": "生死觉知与AI时代", "author": "宗萨钦哲仁波切", "initials": "宗", "title": "带着觉知过好今天", "quote": "活着的时候修持正念与善良，就是对未知未来最好的准备。", "zh": "不必为遥远不可测的未来过度焦虑，也不用为已经翻篇的昨天反复懊悔；照顾好当下的这一念清净与慈悲，未来自然会水到渠成。", "source": "《活着即是迈向死亡》", "url": "https://khyentsefoundation.org/chs/resource/book_movie/living-is-dying-how-to-prepare-for-death-dying-and-beyond/", "insight": "把每一天都当成完整的一生来用心度过，便无愧于此生。", "action": "睡前合眼时，对今天所经历的一切因缘道一声感恩，安心入眠。"}];
+
+    const CHECKLIST = [
+      "无常观照：今天是否提醒自己‘一切和合事物皆无常’，从而少了一点执着与焦虑？",
+      "知苦不嗔：遇到不顺时，是否止住了抱怨（第二支箭），只如实面对眼前的事实？",
+      "无我松绑：被评价或遇到冲突时，是否觉察到‘我’只是一个暂时的标签，没有急于防卫？",
+      "慈悲发心：在日常沟通或帮助他人时，是否出于真诚善意，而非求回报或自我标榜？",
+      "正语威仪：线上聊天与线下交谈中，是否守住了‘真实、柔和、有益、适时’？",
+      "媒介静默：使用手机或 AI 工具时，是否留出了放下屏幕、回到呼吸与独立思考的静默时间？",
+      "闻思修合一：今天读到的智慧，是否写下了自己的感悟并在生活中实际运用了一次？"
+    ];
+
+    const START_YEAR = 2026, START_MONTH = 10; // Nov 2026 (0-indexed)
+    const TOTAL_MONTHS = 37; // Nov 2026 -> Nov 2029
+
+    const pad = n => String(n).padStart(2, "0");
+    const fmtDate = (y, m, d) => `${y}-${pad(m + 1)}-${pad(d)}`;
+
+    const realNow = new Date();
+    const realIso = fmtDate(realNow.getFullYear(), realNow.getMonth(), realNow.getDate());
+    const DEFAULT_TODAY = (realIso >= "2026-11-01" && realIso <= "2029-11-30") ? realIso : "2026-11-18";
+
+    let curYear = Number(DEFAULT_TODAY.slice(0, 4));
+    let curMonth = Number(DEFAULT_TODAY.slice(5, 7)) - 1;
+    let selectedDate = DEFAULT_TODAY;
+    let themeFilter = "all";
+    let authorFilter = "all";
+    let onlyFavs = false;
+    let query = "";
+
+    const favs = new Set(JSON.parse(localStorage.getItem("buddha3_favs") || "[]"));
+    const reads = new Set(JSON.parse(localStorage.getItem("buddha3_reads") || "[]"));
+    const notes = JSON.parse(localStorage.getItem("buddha3_notes") || "{}");
+    const checks = JSON.parse(localStorage.getItem("buddha3_checks") || "{}");
+
+    if (localStorage.getItem("buddha3_ui") === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+
+    function save() {
+      localStorage.setItem("buddha3_favs", JSON.stringify([...favs]));
+      localStorage.setItem("buddha3_reads", JSON.stringify([...reads]));
+      localStorage.setItem("buddha3_notes", JSON.stringify(notes));
+    }
+
+    function dayIndex(iso) {
+      const [y, m, d] = iso.split("-").map(Number);
+      const t1 = Date.UTC(2026, 10, 1);
+      const t2 = Date.UTC(y, m - 1, d);
+      return Math.floor((t2 - t1) / 86400000);
+    }
+
+    function itemFor(iso) {
+      const idx = ((dayIndex(iso) % DATA.length) + DATA.length) % DATA.length;
+      return DATA[idx];
+    }
+
+    function matchesFilters(item, iso) {
+      if (themeFilter !== "all" && item.theme !== themeFilter) return false;
+      if (authorFilter !== "all") {
+        const hay = `${item.author} ${item.source} ${item.title}`;
+        if (authorFilter === "菩萨") {
+          if (!/龙树|月称|寂天|帝洛巴|太虚/.test(hay)) return false;
+        } else if (authorFilter === "经") {
+          if (!/经》|论》/.test(hay)) return false;
+        } else if (!hay.includes(authorFilter)) {
+          return false;
+        }
+      }
+      if (onlyFavs && !favs.has(iso)) return false;
+      if (query.trim()) {
+        const q = query.trim().toLowerCase();
+        const text = `${item.title} ${item.quote} ${item.zh} ${item.author} ${item.source} ${item.insight} ${item.action}`.toLowerCase();
+        if (!text.includes(q)) return false;
+      }
+      return true;
+    }
+
+    function initMonthSelect() {
+      const sel = document.getElementById("monthSelect");
+      sel.innerHTML = "";
+      for (let i = 0; i < TOTAL_MONTHS; i++) {
+        const d = new Date(START_YEAR, START_MONTH + i, 1);
+        const y = d.getFullYear(), m = d.getMonth();
+        const opt = document.createElement("option");
+        opt.value = `${y}-${m}`;
+        opt.textContent = `${y} 年 ${m + 1} 月`;
+        if (y === curYear && m === curMonth) opt.selected = true;
+        sel.appendChild(opt);
+      }
+      sel.onchange = () => {
+        const [y, m] = sel.value.split("-").map(Number);
+        curYear = y; curMonth = m;
+        renderGrid();
+      };
+    }
+
+    function renderGrid() {
+      const grid = document.getElementById("calGrid");
+      const firstDay = new Date(curYear, curMonth, 1).getDay();
+      const daysInMonth = new Date(curYear, curMonth + 1, 0).getDate();
+      document.getElementById("monthSelect").value = `${curYear}-${curMonth}`;
+
+      let html = "";
+      for (let i = 0; i < firstDay; i++) html += `<div class="day-empty"></div>`;
+
+      let matchCount = 0;
+      for (let d = 1; d <= daysInMonth; d++) {
+        const iso = fmtDate(curYear, curMonth, d);
+        const item = itemFor(iso);
+        const ok = matchesFilters(item, iso);
+        if (ok) matchCount++;
+        const isSel = iso === selectedDate;
+        const isToday = iso === DEFAULT_TODAY;
+        const isFav = favs.has(iso);
+        const isRead = reads.has(iso);
+        const hasNote = Boolean(notes[iso] && notes[iso].trim());
+        const dotColor = `var(--${item.theme})`;
+        html += `
+          <div class="day-cell ${isSel ? "selected" : ""} ${isToday ? "today" : ""} ${ok ? "" : "dimmed"}" data-iso="${iso}">
+            <div class="day-top">
+              <span class="day-num">${d}</span>
+              <span class="day-marks">
+                ${isFav ? '<span style="color:var(--accent)">★</span>' : ""}
+                ${hasNote ? '<span title="有笔记">✎</span>' : ""}
+                ${isRead ? '<span style="color:var(--path)">✓</span>' : ""}
+                <span class="theme-dot" style="background:${dotColor}"></span>
+              </span>
+            </div>
+            <div class="day-snippet">${item.title}</div>
+          </div>`;
+      }
+      grid.innerHTML = html;
+      document.getElementById("monthSummary").textContent = `本月匹配 ${matchCount} / ${daysInMonth} 天`;
+      document.getElementById("readStat").textContent = `已读 ${reads.size} 天`;
+      document.getElementById("favStat").textContent = `收藏 ${favs.size} 条`;
+
+      grid.querySelectorAll(".day-cell").forEach(el => {
+        el.onclick = () => {
+          selectedDate = el.dataset.iso;
+          renderGrid();
+          renderReader();
+        };
+      });
+    }
+
+    function renderReader() {
+      const panel = document.getElementById("readerPanel");
+      const item = itemFor(selectedDate);
+      const isFav = favs.has(selectedDate);
+      const isRead = reads.has(selectedDate);
+      const [y, m, d] = selectedDate.split("-").map(Number);
+      const wd = ["日", "一", "二", "三", "四", "五", "六"][new Date(y, m - 1, d).getDay()];
+
+      panel.innerHTML = `
+        <div class="reader-meta">
+          <span class="date-badge">${y}年${m}月${d}日 · 星期${wd} · 第 ${dayIndex(selectedDate) + 1} 天</span>
+          <span class="theme-badge t-${item.theme}">${item.themeLabel}</span>
+        </div>
+        <h2 class="reader-title">${item.title}</h2>
+        <div class="quote-box">
+          <p class="quote-orig">「${item.quote}」</p>
+          <p class="quote-zh">${item.zh}</p>
+        </div>
+        <div class="author-row">
+          <div class="author-info">
+            <div class="avatar">${item.initials}</div>
+            <div>
+              <div class="author-name">${item.author}</div>
+              <div class="source-name">${item.source}</div>
+            </div>
+          </div>
+          <a class="btn" href="${item.url}" target="_blank" rel="noopener noreferrer">查看出处 ↗</a>
+        </div>
+        <div class="card-grid">
+          <div class="info-card">
+            <div class="info-label">法义洞察</div>
+            <p class="info-text">${item.insight}</p>
+          </div>
+          <div class="info-card">
+            <div class="info-label">今日正念践行</div>
+            <p class="info-text">${item.action}</p>
+          </div>
+        </div>
+        <div class="note-box">
+          <div class="note-label">
+            <span>当日修习随笔（自动保存于本地）</span>
+            <span id="noteSaved"></span>
+          </div>
+          <textarea id="noteInput" placeholder="写下你今天对这句法语的体悟或觉察...">${notes[selectedDate] || ""}</textarea>
+        </div>
+        <div class="reader-actions">
+          <div class="action-left">
+            <button class="btn ${isFav ? "active" : ""}" id="favBtn">${isFav ? "★ 已收藏" : "☆ 收藏"}</button>
+            <button class="btn ${isRead ? "active" : ""}" id="readBtn">${isRead ? "✓ 已读" : "标记已读"}</button>
+            <button class="btn" id="copyBtn">复制法语</button>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <button class="icon-btn" id="prevDayBtn" title="前一天 (←)">‹</button>
+            <button class="icon-btn" id="nextDayBtn" title="后一天 (→)">›</button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById("favBtn").onclick = () => {
+        if (favs.has(selectedDate)) favs.delete(selectedDate);
+        else favs.add(selectedDate);
+        save(); renderGrid(); renderReader();
+      };
+      document.getElementById("readBtn").onclick = () => {
+        if (reads.has(selectedDate)) reads.delete(selectedDate);
+        else reads.add(selectedDate);
+        save(); renderGrid(); renderReader();
+      };
+      document.getElementById("copyBtn").onclick = async () => {
+        const txt = `【${selectedDate} · ${item.title}】\n「${item.quote}」\n${item.zh}\n—— ${item.author}（${item.source}）\n今日践行：${item.action}`;
+        try {
+          await navigator.clipboard.writeText(txt);
+          document.getElementById("copyBtn").textContent = "✓ 已复制";
+          setTimeout(() => document.getElementById("copyBtn").textContent = "复制法语", 1500);
+        } catch {}
+      };
+      document.getElementById("noteInput").addEventListener("input", e => {
+        notes[selectedDate] = e.target.value;
+        save();
+        document.getElementById("noteSaved").textContent = "已保存";
+        renderGrid();
+      });
+      document.getElementById("prevDayBtn").onclick = () => stepDate(-1);
+      document.getElementById("nextDayBtn").onclick = () => stepDate(1);
+    }
+
+    function stepDate(delta) {
+      const [y, m, d] = selectedDate.split("-").map(Number);
+      const next = new Date(y, m - 1, d + delta);
+      const iso = fmtDate(next.getFullYear(), next.getMonth(), next.getDate());
+      if (iso < "2026-11-01" || iso > "2029-11-30") return;
+      selectedDate = iso;
+      curYear = next.getFullYear();
+      curMonth = next.getMonth();
+      renderGrid();
+      renderReader();
+    }
+
+    document.getElementById("prevMonthBtn").onclick = () => {
+      const idx = (curYear - START_YEAR) * 12 + (curMonth - START_MONTH) - 1;
+      if (idx < 0) return;
+      const d = new Date(START_YEAR, START_MONTH + idx, 1);
+      curYear = d.getFullYear(); curMonth = d.getMonth();
+      renderGrid();
+    };
+
+    document.getElementById("nextMonthBtn").onclick = () => {
+      const idx = (curYear - START_YEAR) * 12 + (curMonth - START_MONTH) + 1;
+      if (idx >= TOTAL_MONTHS) return;
+      const d = new Date(START_YEAR, START_MONTH + idx, 1);
+      curYear = d.getFullYear(); curMonth = d.getMonth();
+      renderGrid();
+    };
+
+    document.getElementById("todayBtn").onclick = () => {
+      selectedDate = DEFAULT_TODAY;
+      curYear = Number(DEFAULT_TODAY.slice(0, 4));
+      curMonth = Number(DEFAULT_TODAY.slice(5, 7)) - 1;
+      renderGrid();
+      renderReader();
+    };
+
+    document.querySelectorAll("#themeFilters .chip").forEach(c => {
+      c.onclick = () => {
+        document.querySelectorAll("#themeFilters .chip").forEach(x => x.classList.remove("active"));
+        c.classList.add("active");
+        themeFilter = c.dataset.theme;
+        renderGrid();
+      };
+    });
+
+    document.querySelectorAll("#authorFilters .chip").forEach(c => {
+      c.onclick = () => {
+        document.querySelectorAll("#authorFilters .chip").forEach(x => x.classList.remove("active"));
+        c.classList.add("active");
+        authorFilter = c.dataset.author;
+        renderGrid();
+      };
+    });
+
+    document.getElementById("favFilterBtn").onclick = function () {
+      onlyFavs = !onlyFavs;
+      this.classList.toggle("active", onlyFavs);
+      renderGrid();
+    };
+
+    document.getElementById("searchInput").addEventListener("input", e => {
+      query = e.target.value;
+      renderGrid();
+    });
+
+    document.getElementById("themeBtn").onclick = () => {
+      const dark = document.documentElement.getAttribute("data-theme") === "dark";
+      document.documentElement.setAttribute("data-theme", dark ? "light" : "dark");
+      localStorage.setItem("buddha3_ui", dark ? "light" : "dark");
+    };
+
+    function renderChecklist() {
+      const body = document.getElementById("checklistBody");
+      body.innerHTML = CHECKLIST.map((t, i) => `
+        <label class="check-row">
+          <input type="checkbox" ${checks[i] ? "checked" : ""} data-i="${i}" />
+          <span style="font-size: 0.9rem; line-height:1.5;">${t}</span>
+        </label>
+      `).join("");
+      body.querySelectorAll("input").forEach(inp => {
+        inp.onchange = () => {
+          checks[inp.dataset.i] = inp.checked;
+          localStorage.setItem("buddha3_checks", JSON.stringify(checks));
+        };
+      });
+    }
+
+    document.getElementById("checklistBtn").onclick = () => {
+      renderChecklist();
+      document.getElementById("checklistModal").classList.add("open");
+    };
+
+    document.getElementById("closeModalBtn").onclick = () => {
+      document.getElementById("checklistModal").classList.remove("open");
+    };
+
+    document.getElementById("checklistModal").onclick = e => {
+      if (e.target.id === "checklistModal") e.target.classList.remove("open");
+    };
+
+    document.addEventListener("keydown", e => {
+      if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) return;
+      if (e.key === "ArrowLeft") stepDate(-1);
+      if (e.key === "ArrowRight") stepDate(1);
+      if (e.key.toLowerCase() === "f") {
+        if (favs.has(selectedDate)) favs.delete(selectedDate);
+        else favs.add(selectedDate);
+        save(); renderGrid(); renderReader();
+      }
+    });
+
+    initMonthSelect();
+    renderGrid();
+    renderReader();
+  </script>
+</body>
+</html>
