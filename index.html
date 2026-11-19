@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Outsiders &amp; Munger · 每日商业智慧原文日历</title>
+  <style>
+    :root {
+      --bg: #f6f3ec;
+      --bg-accent: #efeae0;
+      --surface: #ffffff;
+      --surface-soft: #faf8f4;
+      --ink: #181714;
+      --ink-2: #4a4740;
+      --muted: #8a8377;
+      --border: #e5dfd3;
+      --border-strong: #d3cbbd;
+      --gold: #9a6b16;
+      --gold-bright: #b88322;
+      --gold-soft: #f7efe0;
+      --cap: #1d4ed8; --cap-bg: #eff6ff;
+      --mgmt: #047857; --mgmt-bg: #ecfdf5;
+      --model: #6d28d9; --model-bg: #f5f3ff;
+      --retail: #b45309; --retail-bg: #fffbeb;
+      --shadow-sm: 0 2px 10px rgba(24, 23, 20, 0.04);
+      --shadow-md: 0 12px 36px rgba(24, 23, 20, 0.07);
+      --radius: 18px;
+      --serif: "Georgia", "Times New Roman", "Songti SC", "Noto Serif SC", serif;
+      --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f1012;
+      --bg-accent: #16181c;
+      --surface: #181a1f;
+      --surface-soft: #1f2228;
+      --ink: #f0ede6;
+      --ink-2: #b8b3a8;
+      --muted: #7d7970;
+      --border: #2a2d35;
+      --border-strong: #3a3e48;
+      --gold: #dfb15b;
+      --gold-bright: #f0c878;
+      --gold-soft: #2a2316;
+      --cap: #93c5fd; --cap-bg: #172554;
+      --mgmt: #6ee7b7; --mgmt-bg: #064e3b;
+      --model: #c4b5fd; --model-bg: #2e1065;
+      --retail: #fcd34d; --retail-bg: #451a03;
+      --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.25);
+      --shadow-md: 0 14px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: color-mix(in srgb, var(--surface) 88%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 1.05rem;
+      box-shadow: 0 4px 12px rgba(154, 107, 22, 0.28);
+    }
+
+    .brand-text h1 { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; }
+    .brand-text p { font-size: 0.76rem; color: var(--muted); }
+
+    .toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .search-wrap { position: relative; }
+
+    .search-wrap input {
+      width: 220px;
+      padding: 7px 14px 7px 32px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+      color: var(--ink);
+      font-size: 0.83rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-wrap input:focus { border-color: var(--gold); width: 260px; background: var(--surface); }
+    .search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); font-size: 0.8rem; color: var(--muted); pointer-events: none; }
+
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--ink);
+      padding: 7px 13px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.16s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover { border-color: var(--gold); background: var(--gold-soft); color: var(--gold); }
+    .btn.active { background: var(--gold); border-color: var(--gold); color: #fff; }
+
+    .layout {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 26px 28px 48px;
+      display: grid;
+      grid-template-columns: 440px 1fr;
+      gap: 26px;
+      align-items: start;
+    }
+
+    @media (max-width: 1040px) {
+      .layout { grid-template-columns: 1fr; padding: 18px; }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    .cal-head {
+      padding: 20px 22px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cal-month { font-family: var(--serif); font-size: 1.25rem; font-weight: 700; }
+    .cal-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+    .progress-pill {
+      font-size: 0.76rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      color: var(--ink-2);
+      font-weight: 600;
+    }
+
+    .filters {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .filter-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .chip {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--ink-2);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .chip:hover { border-color: var(--gold); color: var(--gold); }
+    .chip.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+    .weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      padding: 12px 14px 4px;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .cal-grid {
+      padding: 6px 14px 18px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+
+    .day-cell {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 7px 6px;
+      min-height: 66px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: left;
+      transition: all 0.16s ease;
+      position: relative;
+    }
+
+    .day-cell:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+    .day-cell.selected { border-color: var(--gold); background: var(--gold-soft); box-shadow: 0 0 0 2px color-mix(in srgb, var(--gold) 28%, transparent); }
+
+    .day-cell.today::after {
+      content: "";
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ef4444;
+    }
+
+    .day-cell.dimmed { opacity: 0.24; }
+    .cell-top { display: flex; align-items: center; justify-content: space-between; font-size: 0.84rem; font-weight: 700; }
+    .cell-author { font-size: 0.64rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+    .cell-marks { display: flex; gap: 3px; align-items: center; margin-top: 4px; }
+    .mark-dot { width: 5px; height: 5px; border-radius: 50%; }
+    .mark-read { background: #10b981; }
+    .mark-fav { background: #f59e0b; }
+    .mark-note { background: #3b82f6; }
+
+    .reader { padding: 34px 38px; position: relative; }
+    @media (max-width: 640px) { .reader { padding: 22px 18px; } }
+
+    .reader-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
+    .meta-badges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+
+    .date-pill {
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: var(--gold-soft);
+      color: var(--gold);
+      border: 1px solid color-mix(in srgb, var(--gold) 25%, transparent);
+    }
+
+    .theme-pill { font-size: 0.75rem; font-weight: 600; padding: 4px 11px; border-radius: 999px; }
+    .t-cap { color: var(--cap); background: var(--cap-bg); }
+    .t-mgmt { color: var(--mgmt); background: var(--mgmt-bg); }
+    .t-model { color: var(--model); background: var(--model-bg); }
+    .t-retail { color: var(--retail); background: var(--retail-bg); }
+
+    .author-row { display: flex; align-items: center; gap: 12px; margin-top: 6px; }
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--bg-accent);
+      border: 1px solid var(--border-strong);
+      display: grid;
+      place-items: center;
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--gold);
+    }
+
+    .reader-title { font-family: var(--serif); font-size: 1.72rem; font-weight: 700; line-height: 1.28; letter-spacing: -0.015em; }
+    .source-line { font-size: 0.82rem; color: var(--muted); }
+    .source-line a { color: var(--gold); text-decoration: none; border-bottom: 1px dashed var(--gold); }
+    .source-line a:hover { border-bottom-style: solid; }
+
+    .quote-stage {
+      position: relative;
+      margin: 24px 0;
+      padding: 28px 30px;
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      border-radius: 0 16px 16px 0;
+    }
+
+    .quote-watermark {
+      position: absolute;
+      top: 10px;
+      right: 22px;
+      font-family: var(--serif);
+      font-size: 4.5rem;
+      line-height: 1;
+      color: var(--gold);
+      opacity: 0.14;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .quote-kicker { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); font-weight: 700; margin-bottom: 10px; }
+    .quote-en { font-family: var(--serif); font-size: 1.2rem; line-height: 1.7; color: var(--ink); font-style: italic; }
+    .quote-zh { margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--border-strong); font-size: 0.98rem; color: var(--ink-2); line-height: 1.7; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+    @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } }
+
+    .info-box { padding: 18px 20px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface); }
+    .info-box.action { background: color-mix(in srgb, var(--gold-soft) 55%, var(--surface)); border-color: color-mix(in srgb, var(--gold) 28%, var(--border)); }
+    .info-box h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .info-box p { font-size: 0.91rem; color: var(--ink-2); line-height: 1.65; }
+
+    .note-box { margin-top: 18px; padding: 16px 18px; border-radius: 14px; border: 1px dashed var(--border-strong); background: var(--surface-soft); }
+    .note-box label { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; color: var(--ink-2); margin-bottom: 8px; }
+    .note-box textarea { width: 100%; min-height: 68px; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; background: var(--surface); color: var(--ink); font-family: var(--sans); font-size: 0.88rem; resize: vertical; outline: none; }
+    .note-box textarea:focus { border-color: var(--gold); }
+
+    .reader-footer { margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .kbd-hint { font-size: 0.76rem; color: var(--muted); }
+    kbd { background: var(--surface-soft); border: 1px solid var(--border-strong); border-radius: 5px; padding: 1px 6px; font-size: 0.72rem; font-family: monospace; }
+
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 60; }
+    .modal-backdrop.open { display: flex; }
+    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); max-width: 740px; width: 100%; max-height: 84vh; overflow-y: auto; padding: 28px 30px; box-shadow: var(--shadow-md); }
+    .modal-head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid var(--border); }
+    .check-row { display: flex; gap: 12px; padding: 11px 8px; border-bottom: 1px dashed var(--border); align-items: flex-start; cursor: pointer; border-radius: 8px; }
+    .check-row:hover { background: var(--surface-soft); }
+    .check-row input { margin-top: 4px; width: 16px; height: 16px; accent-color: var(--gold); }
+
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--ink); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-size: 0.84rem; font-weight: 500; opacity: 0; transform: translateY(8px); pointer-events: none; transition: all 0.2s ease; z-index: 80; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">M</div>
+        <div class="brand-text">
+          <h1>资本配置与普世智慧 · 每日原文日历</h1>
+          <p>Munger · Buffett · Tom Murphy &amp; Dan Burke · Sol Price · Henry Singleton</p>
+        </div>
+      </div>
+      <div class="toolbar">
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input type="text" id="searchInput" placeholder="搜索英文原句、人物或主题…" />
+        </div>
+        <button class="btn" id="favFilterBtn">★ 收藏 <span id="favCount">0</span></button>
+        <button class="btn" id="checklistBtn">☑ 12条决策清单</button>
+        <button class="btn" id="themeBtn">◐ 外观</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="card">
+      <div class="cal-head">
+        <div>
+          <div class="cal-month">2026年11月 · 30天日历</div>
+          <div class="cal-sub" id="calSub">红点为今日，点击任意日期阅读原文</div>
+        </div>
+        <div class="progress-pill">已读 <span id="readCount">0</span>/30</div>
+      </div>
+
+      <div class="filters">
+        <div class="filter-row" id="themeFilters">
+          <button class="chip active" data-theme="all">全部主题</button>
+          <button class="chip" data-theme="cap">资本配置</button>
+          <button class="chip" data-theme="mgmt">管理与节俭</button>
+          <button class="chip" data-theme="model">思维模型</button>
+          <button class="chip" data-theme="retail">护城河与零售</button>
+        </div>
+        <div class="filter-row" id="authorFilters">
+          <button class="chip active" data-author="all">全部大师</button>
+          <button class="chip" data-author="Munger">Munger</button>
+          <button class="chip" data-author="Buffett">Buffett</button>
+          <button class="chip" data-author="Murphy">Murphy &amp; Burke</button>
+          <button class="chip" data-author="Price">Sol Price</button>
+        </div>
+      </div>
+
+      <div class="weekdays">
+        <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+    </aside>
+
+    <section class="card reader" id="reader"></section>
+  </main>
+
+  <div class="modal-backdrop" id="checklistModal">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <h2 style="font-family: var(--serif); font-size: 1.25rem;">芒格与巴菲特 12 条决策检查清单</h2>
+          <p style="font-size: 0.8rem; color: var(--muted);">出自《Seeking Wisdom》Appendix Four: Checklists</p>
+        </div>
+        <button class="btn" id="closeModalBtn">关闭</button>
+      </div>
+      <div id="checklistBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">已复制到剪贴板</div>
+
+  <script>
+    const DATA = [
+      { day: 1, theme: "cap", themeLabel: "资本配置", author: "Charlie Munger", initials: "CM", title: "去中心化运营 + 高度集权的资本配置", en: "As Charlie Munger described it to me, their companies were 'an odd blend of decentralised operations and highly centralised capital allocation,' and this mix of loose and tight, of delegation and hierarchy, proved to be a very powerful counter to the institutional imperative.", zh: "查理·芒格曾向我这样描述：他们的公司是“去中心化运营与高度集权的资本配置的奇特结合”，这种松紧相济、授权与层级并存的模式，被证明是对抗“机构惯性”的极其强大的武器。", source: "William N. Thorndike《The Outsiders》", url: "https://harry-cheslaw.medium.com/the-outsiders-f2cfb8de678a", insight: "顶级商业领袖把日常决策权下放给最接近一线的人，但把每一分自由现金流的配置权牢牢握在总部手里，避免一线盲目扩张或总部微管理。", action: "今天审视你的团队或工作：哪些日常执行可以放手授权，哪些核心资源（时间、预算、关键人才）需要你集中配置？" },
+      { day: 2, theme: "mgmt", themeLabel: "管理与节俭", author: "Tom Murphy", initials: "TM", title: "去中心化是管理哲学的基石", en: "Decentralization is the cornerstone of our management philosophy. Our goal is to hire the best people we can find and give them the responsibility and authority they need to perform their jobs. Decisions are made at the local level, consistent with the basic responsibilities of corporate management…", zh: "去中心化是我们管理哲学的基石。我们的目标是雇佣我们能找到的最优秀的人才，并赋予他们履行职责所需的责任和权力。决策在基层做出，同时符合公司管理的基本职责……", source: "Capital Cities/ABC Annual Report", url: "https://www.deciphr.ai/podcast/328-tom-murphy-buffetts-favorite-manager", insight: "Tom Murphy 收购规模远超自己的 ABC 电视网时，总部仅有 36 人。信任一线不是放任自流，而是用极高的人才标准换取极低的官僚监督成本。", action: "检查你最近亲自介入的一件琐事：如果交给最靠谱的伙伴并明确边界，他能不能做得比你更好？" },
+      { day: 3, theme: "mgmt", themeLabel: "管理与节俭", author: "Dan Burke", initials: "DB", title: "年度“小黑屋”问责制", en: "We sit everybody down in the dark once a year and show them what they said they were going to do for the year and what they actually did. Then we look at what they say they're going to do next year. It's sort of compelling to know that a year from now you're going to be back in that same slot.", zh: "我们每年让所有人坐在暗处（看幻灯片）一次，向他们展示他们年初说要做什么，以及他们实际做了什么。然后我们再看他们说明年打算做什么。知道一年后你还会回到同一个位置接受检视，这本身就有一种强大的约束力。", source: "25iq: A Dozen Things I've Learned from Tom Murphy", url: "https://25iq.com/2015/01/11/a-dozen-things-ive-learned-from-tom-murphy-about-capital-allocation-and-management/", insight: "高度授权必须搭配刚性问责。Dan Burke 的年度预算复盘会没有冗余废话，只对比“去年承诺”与“实际交付”，让管理者天然产生敬畏心。", action: "翻出你年初或上季度立下的核心目标，用最客观的数据对照一下实际完成度。" },
+      { day: 4, theme: "cap", themeLabel: "资本配置", author: "Warren Buffett", initials: "WB", title: "警惕“机构惯性”（Institutional Imperative）", en: "My most surprising discovery: the overwhelming importance in business of an unseen force that we might call 'the institutional imperative.' In business school, I was given no hint of the imperative's existence and I did not intuitively understand it when I entered the business world. Instead, rationality frequently wilts when the institutional imperative comes into play.", zh: "我最惊讶的发现是：商业中存在一种看不见的力量，我们可以称之为“机构惯性”。在商学院里没人提过它……随着时间推移我才明白，当机构惯性发挥作用时，理性往往会迅速枯萎。", source: "Berkshire Hathaway 1989 Annual Letter", url: "https://blas.com/berkshire-annual-shareholder-letters-by-warren-buffett/", insight: "人总是倾向于模仿同行，哪怕同行的做法在财务上是愚蠢的——因为“跟大家一起输”不会显得自己无能。独立思考的起点是识别这种盲从惯性。", action: "问自己一句：如果全世界都看不见我今天的决定，仅凭事实与回报率，我还会做同样的选择吗？" },
+      { day: 5, theme: "mgmt", themeLabel: "管理与节俭", author: "Tom Murphy", initials: "TM", title: "不要雇了狗，却自己去吠叫", en: "[Warren Buffett and I] are both proponents of a decentralized management philosophy: of hiring key people carefully; of pushing decisions down the organization; and of setting overall principles and resisting temptation to be involved with details. In other words, don't hire a dog and try to do the barking.", zh: "巴菲特和我都推崇去中心化管理：精挑细选关键人才；把决策权下放；设定总体原则并克制自己插手细节的冲动。换句话说，不要雇了一只狗，却自己去吠叫。", source: "25iq / Tom Murphy", url: "https://25iq.com/2015/01/11/a-dozen-things-ive-learned-from-tom-murphy-about-capital-allocation-and-management/", insight: "微管理不仅消耗领导者的带宽，还会摧毁下属的责任感。把人选对、原则定清，然后忍住不出手，是最难也最值钱的管理修炼。", action: "今天克制一次“我来帮你改/我来直接做”的冲动，把问题和判断标准抛回给负责人。" },
+      { day: 6, theme: "cap", themeLabel: "资本配置", author: "Dan Burke", initials: "DB", title: "最佳搭档的分工：创造现金流 vs 配置现金流", en: "My job was to create the free cash flow and Murphy's was to spend it.", zh: "我的工作是创造自由现金流，而墨菲的工作是把它花掉（进行资本配置）。", source: "Dan Burke, Capital Cities/ABC", url: "https://www.eosworldwide.com/blog/the-greatest-two-person-combination-the-world-has-ever-seen", insight: "Cap Cities 的奇迹建立在 Burke（极致运营与成本控制）和 Murphy（耐心择时的资本配置）的黄金分工上。运营赚来的钱，若配置不当同样会毁于一旦。", action: "区分你手上的两类工作：哪些是在“提升当前现金流/效率”，哪些是在“把盈余投入到更高复利的地方”？" },
+      { day: 7, theme: "retail", themeLabel: "护城河与零售", author: "Sol Price", initials: "SP", title: "零售的“六项正确”（The Six Rights）", en: "You've got to have the right kind, in the right place, at the right time, in the right quantity, in the right condition, at the right price.", zh: "你必须在正确的地点、正确的时间，以正确的数量、正确的状态和正确的价格，提供正确种类的商品。", source: "Robert Price《Sol Price: Retail Revolutionary and Social Innovator》", url: "https://blas.com/sol-price/", insight: "Sol Price 创立 FedMart 与 Price Club 时定下的黄金法则，至今仍贴在每一家 Costco 的墙上。零售的本质不是花哨营销，而是对供应链与商品力的极致精准。", action: "用“六项正确”检视你当前负责的核心产品或服务，哪一项目前是短板？" },
+      { day: 8, theme: "retail", themeLabel: "护城河与零售", author: "Sol Price", initials: "SP", title: "把一切效率省下的钱还给顾客", en: "We sell items for as little as we can, instead of for as much as we can. We always pass on any savings or reduction in cost to the member.", zh: "我们尽可能以最低的价格出售商品，而不是尽可能卖高价。我们总是把任何节省下来的成本或降价空间回馈给会员。", source: "Costco Orientation / Sol Price 经营哲学", url: "https://www.costco.com/wcsstore/CostcoUSBCCatalogAssetStore/Attachment/Orientation_Magazine_2018.pdf", insight: "大多数企业想的是“我最多能收多少钱”，而 Sol Price 和 Costco 想的是“我最少能收多少钱”。这种“顾客受托人”心态会形成对手根本不敢模仿的规模飞轮。", action: "思考一下：在你的业务里，有没有一种成本优化可以直接让利给用户，从而换取更高的复购与信任？" },
+      { day: 9, theme: "model", themeLabel: "思维模型", author: "Charlie Munger", initials: "CM", title: "逆向思考：反过来想，总是反过来想", en: "Think forwards and backwards — invert, always invert. Many hard problems are best solved when they are addressed backward.", zh: "正反两面思考——反过来想，总是反过来想。许多棘手的问题，从反面入手反而最容易解决。", source: "25iq / Charlie Munger", url: "https://25iq.com/2015/09/12/a-dozen-things-ive-learned-from-charlie-munger-about-inversion-including-the-importance-of-being-consistently-not-stupid-2/", insight: "与其绞尽脑汁想“如何才能大获成功”，不如先列清楚“哪些愚蠢行为一定会让我彻底失败”，然后坚决避开它们。", action: "针对你本周最重要的一件事，用 3 分钟写下“怎样做会彻底搞砸它”，并立即设置防范底线。" },
+      { day: 10, theme: "model", themeLabel: "思维模型", author: "Charlie Munger", initials: "CM", title: "长期保持“不愚蠢”的复利优势", en: "It is remarkable how much long-term advantage [we] have gotten by trying to be consistently not stupid, instead of trying to be very intelligent.", zh: "令人惊叹的是，我们仅仅通过努力“持续保持不愚蠢”，而不是试图“显得非常聪明”，就获得了多么巨大的长期优势。", source: "25iq: Charlie Munger on Inversion", url: "https://25iq.com/2015/09/12/a-dozen-things-ive-learned-from-charlie-munger-about-inversion-including-the-importance-of-being-consistently-not-stupid-2/", insight: "高智商的人常常因为过度自信或追求炫技而栽跟头。在复利的世界里，不犯致命错误比偶尔灵光一现重要得多。", action: "今天在做任何复杂判断前，先检查自己是否只是想“显得聪明”，还是在遵循最朴素的常识。" },
+      { day: 11, theme: "cap", themeLabel: "资本配置", author: "Warren Buffett", initials: "WB", title: "跨过一英尺的栏杆，而非七英尺", en: "After 25 years of buying and supervising a great variety of businesses, Charlie and I have not learned how to solve difficult business problems. What we have learned is to avoid them. To the extent we have been successful, it is because we concentrated on identifying one-foot hurdles that we could step over rather than because we acquired any ability to clear seven-footers.", zh: "在收购和监管各种企业 25 年后，查理和我依然没学会如何解决棘手的商业难题，我们学会的是避开它们。我们之所以能成功，是因为我们专注于寻找一英尺高的跨栏并跨过去，而不是练就了跨越七英尺高栏的本领。", source: "Berkshire Hathaway 1989 Annual Letter", url: "https://blas.com/berkshire-annual-shareholder-letters-by-warren-buffett/", insight: "商业和投资不是奥林匹克跳水，没有难度系数加分。选对简单、确定性高的赛道，比在泥潭里展现高超技巧划算得多。", action: "盘点你当前的待办事项：有没有哪个高难度、低回报的“七英尺栏杆”其实可以直接放弃或绕开？" },
+      { day: 12, theme: "cap", themeLabel: "资本配置", author: "Warren Buffett", initials: "WB", title: "时间是好生意的朋友，平庸生意的敌人", en: "Time is the friend of the wonderful business, the enemy of the mediocre.", zh: "时间是优秀企业的朋友，却是平庸企业的敌人。", source: "Berkshire Hathaway 1989 Annual Letter", url: "https://blas.com/berkshire-annual-shareholder-letters-by-warren-buffett/", insight: "如果你的商业模式护城河不够深，拖得越久，竞争和通胀就会越快侵蚀利润；只有真正具备定价权与高资本回报率的资产，才配得上长期持有。", action: "问自己：我目前投入最多时间的项目，三年后时间会让它的壁垒更深，还是更脆弱？" },
+      { day: 13, theme: "mgmt", themeLabel: "管理与节俭", author: "Tom Murphy", initials: "TM", title: "把成本意识刻进公司 DNA", en: "Cost control was the baseline of our company culture. We worked to make cost-consciousness a part of our company's DNA. Budgets, which are set yearly and reviewed quarterly, originate with the operating units that are responsible for them.", zh: "成本控制是我们公司文化的底线。我们努力让成本意识成为公司 DNA 的一部分。预算按年制定、按季审查，并且由承担责任的基层运营单元自己发起。", source: "25iq: Tom Murphy", url: "https://25iq.com/2015/01/11/a-dozen-things-ive-learned-from-tom-murphy-about-capital-allocation-and-management/", insight: "Tom Murphy 节俭到只粉刷大楼临街的两面墙，但在收购高回报资产时却毫不犹豫掷出重金。节俭不是抠门，而是把每一块钱留在真正产生回报的地方。", action: "检查一笔你最近习惯性的开销或资源消耗：它真的能带来匹配的产出吗？" },
+      { day: 14, theme: "retail", themeLabel: "护城河与零售", author: "Sol Price", initials: "SP", title: "绝不占供应商便宜的商业诚信", en: "One time we were selling ladies' hosiery for $3.99 and Sol got the idea we should sell the package for $2.99 and so he said we would give up 50 cents if the supplier would also give up 50 cents... After about six months it had not really moved a needle in selling the hosiery so Sol asked Ira to go back to the supplier and give them back the 50 cents.", zh: "有一次我们卖 3.99 美元的女袜，索尔提议降到 2.99 美元，公司和供应商各让利 50 美分……半年后销量并没有明显起色，索尔便让买手回去把那 50 美分退还给供应商。", source: "Jim Sinegal 追忆 Sol Price（《Sol Price》p. 84）", url: "", insight: "在零售业，压榨供应商是最常见也最短视的手段。Sol Price 退回让利的举动，让供应商死心塌地把最好的货源和最低的底价留给他。", action: "对待长期合作伙伴或上游供应商，最近有没有一个细节可以让你展现出超出对方预期的公平与诚信？" },
+      { day: 15, theme: "model", themeLabel: "思维模型", author: "Charlie Munger", initials: "CM", title: "警惕杠杆：聪明人破产的唯一原因", en: "Whenever a really bright person who has a lot of money goes broke, it's because of leverage ... It's almost impossible to go broke without borrowed money being in the equation.", zh: "每当一个非常聪明、又很有钱的人破产时，原因几乎都是杠杆……如果没有借钱（加杠杆），你几乎不可能破产。", source: "Peter Bevelin《Seeking Wisdom》p. 157", url: "", insight: "哪怕聚集了诺贝尔奖得主和百年经验，一旦在高波动中加上高杠杆，一次小概率尾部事件就能清零前面所有的复利。", action: "评估你当前的财务、精力或业务结构：有没有某个环节加了隐性杠杆，一旦外部环境突变就会承压过大？" },
+      { day: 16, theme: "cap", themeLabel: "资本配置", author: "Henry Singleton", initials: "HS", title: "CEO 的两项核心职责：运营与配置", en: "CEOs need to do two things well to be successful: run their operations efficiently and deploy the cash generated by those operations. Most CEOs focus on managing operations, which is undeniably important. Singleton, in contrast, gave most of his attention to the later task.", zh: "CEO 要想成功必须做好两件事：高效运营业务，以及配置业务产生的现金。大多数 CEO 只盯着日常运营（这固然重要），但辛格尔顿却把绝大部分精力放在了后者。", source: "William N. Thorndike《The Outsiders》", url: "https://harry-cheslaw.medium.com/the-outsiders-f2cfb8de678a", insight: "当股价高估时增发收购，当股价低估时果断回购超过 90% 的股份——Singleton 用纯粹的理性证明，资本配置才是每股价值增长的终极杠杆。", action: "如果你今天有额外的利润或自由时间，除了“继续投入老业务”，还有没有回报率更高的配置去向？" },
+      { day: 17, theme: "model", themeLabel: "思维模型", author: "Charlie Munger", initials: "CM", title: "自催化效应（Autocatalysis）与复用复利", en: "Disney is an amazing example of autocatalysis ... They had all those movies in the can. They owned the copyright. And just as Coke could prosper when refrigeration came, when the videocassette was invented, Disney didn't have to invent anything or do anything except take the thing out of the can and stick it on the cassette.", zh: "迪士尼是自催化效应的绝佳案例……他们库房里存着所有那些电影，还拥有版权。就像可口可乐搭上冰箱普及的顺风车一样，当录像带发明时，迪士尼什么都不用重新发明，只需把片库里的电影拿出来灌进录像带就行。", source: "Peter Bevelin《Seeking Wisdom》", url: "", insight: "真正强大的资产具有“一次建设、多次变现”的自催化特性：每次新技术媒介出现，老版权和强品牌都会被重新激活一次。", action: "盘点你手头积累的内容、数据、关系或版权资产：有没有可能通过新渠道或新形式实现“零边际成本的二次复用”？" },
+      { day: 18, theme: "model", themeLabel: "思维模型", author: "Charlie Munger", initials: "CM", title: "手拿锤子的人，看什么都像钉子", en: "If you don't have the full repertoire, I guarantee you that you'll overutilize the limited repertoire you have - including use of models that are inappropriate just because they're available to you in the limited stock you have in mind.", zh: "如果你没有完整的思维模型库，我保证你会过度使用你仅有的那几个模型——哪怕它们根本不适用，你也会因为脑子里只有这几样东西而硬套上去。", source: "Peter Bevelin《Seeking Wisdom》", url: "", insight: "单一学科的专家往往最容易在跨界问题上翻车。建立跨数学、物理、心理学、经济学的多元思维格栅，才能避免盲人摸象。", action: "遇到今天的难题时，试着换一个完全不同的学科视角（例如从经济学换成心理学或生物学）来重新审视它。" },
+      { day: 19, theme: "cap", themeLabel: "资本配置", author: "Warren Buffett", initials: "WB", title: "一生只需要做对几次重大决策", en: "Charlie and I decided long ago that in an investment lifetime, it's just too hard to make hundreds of smart decisions... Therefore, we adopted a strategy that required our being smart - and not too smart at that - only a very few times.", zh: "查理和我早就得出结论：在一生的投资生涯中，想做出几百个明智决定实在太难了……因此我们采取了这样一种策略：只要求自己做对非常少数的几次决定，而且不需要太聪明。", source: "Peter Bevelin《Seeking Wisdom》p. 212", url: "", insight: "高频交易和频繁决策会大幅拉低胜率。把子弹留给极少数“赔率极高、看得极清”的时刻，重仓并长期持有。", action: "回顾你过去一年的关键决策：真正决定结果的那 1-2 个大选择是什么？下次如何更耐心地等待它们？" },
+      { day: 20, theme: "mgmt", themeLabel: "管理与节俭", author: "Warren Buffett", initials: "WB", title: "好骑手也骑不赢一匹老弱病马", en: "Good jockeys will do well on good horses, but not on broken-down nags.", zh: "优秀的骑手骑上好马能大显身手，但骑在老弱病马上却无能为力。", source: "Berkshire Hathaway 1989 Annual Letter", url: "https://acquirersmultiple.com/2017/10/warren-buffett-mistakes-of-the-first-twenty-five-years/", insight: "巴菲特早年收购伯克希尔纺织厂时，管理层既聪明又诚实，但行业本身产能过剩、毫无定价权。商业模式的结构性优劣，远比个人努力更决定上限。", action: "诚实评估你正在投入精力的业务或赛道：它本身是一匹“好马”，还是一匹靠人拼命抽鞭子才勉强前进的“老马”？" },
+      { day: 21, theme: "mgmt", themeLabel: "管理与节俭", author: "Warren Buffett", initials: "WB", title: "头版头条测试（The Front-Page Test）", en: "Would I be willing to see my action immediately described by an informed and critical reporter on the front page of my local paper, there to be read by my spouse, children and friends?", zh: "我是否愿意看到自己即将采取的行动，立刻被一位知情且挑剔的记者写进当地报纸的头版头条，让我的配偶、孩子和朋友都看到？", source: "Peter Bevelin《Seeking Wisdom》", url: "", insight: "合法并不代表正确。在商业灰色地带面前，“头版头条测试”是最简单也最锋利的内部道德罗盘。", action: "遇到任何让你略感犹豫、需要“打擦边球”的决定时，先用头版头条测试过滤一遍。" },
+      { day: 22, theme: "model", themeLabel: "思维模型", author: "Charlie Munger", initials: "CM", title: "少做预测，就能提高预测准确率", en: "Around here I would say that if our predictions have been a little better than other people's, it's because we've tried to make fewer of them.", zh: "在我们这里，如果说我们的预测比别人稍微准一点，那是因为我们尽量少做预测。", source: "Peter Bevelin《Seeking Wisdom》", url: "", insight: "市场和宏观环境充满了不可知变量。承认“我不知道”，只对少数自己真正理解的长期规律下判断，反而赢得了最高胜率。", action: "今天如果有人问你无法把握的短期趋势，坦然练习说一句“这不在我的能力圈内”。" },
+      { day: 23, theme: "model", themeLabel: "思维模型", author: "Charlie Munger", initials: "CM", title: "用常识解决大问题，省去“淘金式”细枝末节", en: "I think if you get the big points with organized common sense, it's amazing the placer mining you never have to do ...", zh: "我认为，如果你能用有条理的常识抓住大方向，你会惊讶地发现，自己根本不需要去做那些繁琐的沙里淘金工作……", source: "Peter Bevelin《Seeking Wisdom》", url: "", insight: "当一个人需要靠极度复杂的 Excel 模型才能勉强算出一笔生意划算时，通常意味着这笔生意本身就不够好。真正的好机会一眼就能看穿。", action: "把你正在纠结的复杂方案，试着用 3 句话、不带任何专业黑话讲清楚它的核心逻辑。" },
+      { day: 24, theme: "cap", themeLabel: "资本配置", author: "Warren Buffett", initials: "WB", title: "伊索寓言里的终极估值公式", en: "Aesop's investment axiom, thus expanded and converted into dollars, is immutable. It applies to outlays for farms, oil royalties, bonds, stocks, lottery tickets, and manufacturing plants. And neither the advent of the steam engine, the harnessing of electricity nor the creation of the automobile changed the formula one iota - nor will the Internet.", zh: "将伊索寓言的投资公理（一鸟在手胜过两鸟在林）扩展并换算成美元后，它是永恒不变的。蒸汽机、电力、汽车乃至互联网的诞生，都未能改变这个公式分毫。", source: "Berkshire Hathaway 2000 Annual Report", url: "", insight: "一切资产的内在价值，永远只取决于它在剩余生命周期内能产生的自由现金流折现。技术浪潮会变，但商业算术永恒不变。", action: "看一个新概念或新项目时，抛开叙事光环，先算算它未来 5-10 年到底能流回多少真金白银。" },
+      { day: 25, theme: "cap", themeLabel: "资本配置", author: "John Burr Williams", initials: "JW", title: "留存收益必须创造复利，否则就是亏损", en: "If earnings not paid out in dividends are all successfully reinvested at compound interest for the benefit of the stockholder ... then these earnings should produce dividends later; if not, then they are money lost.", zh: "如果未作为股息派发的利润都能以复利形式成功再投资以造福股东……那么这些利润日后理应产生更高的回报；如果做不到，这些钱就等于白白亏损了。", source: "《The Theory of Investment Value》", url: "", insight: "企业留存每一块钱利润都有机会成本。如果管理层找不到高回报的再投资项目，把钱通过回购或分红还给股东，才是负责任的做法。", action: "检视你留存下来的资金或时间：如果再投入当前项目回报率极低，就该果断抽回并重新分配。" },
+      { day: 26, theme: "mgmt", themeLabel: "管理与节俭", author: "Tom Murphy", initials: "TM", title: "把精力花在你能控制的事情上", en: "Don't spend your time on things you can't control. Instead, spend your time thinking about what you can.", zh: "不要把时间浪费在你无法控制的事情上，而要把时间花在思考你能控制的事情上。", source: "25iq: Tom Murphy", url: "https://25iq.com/2015/01/11/a-dozen-things-ive-learned-from-tom-murphy-about-capital-allocation-and-management/", insight: "宏观经济、同行情绪、市场短期波动都不受你控制；但你的成本结构、产品品质、人才密度和资本配置完全由你掌控。", action: "划掉今天清单里那些让你焦虑却无能为力的外部变量，只保留你能直接推进的动作。" },
+      { day: 27, theme: "retail", themeLabel: "护城河与零售", author: "Sol Price", initials: "SP", title: "外行人的视角反而能打破行业陈规", en: "Fortunately most of us had backgrounds that were alien to retailing.", zh: "幸运的是，我们大多数人的背景都与传统零售业毫无关系。", source: "Robert Price《Sol Price: Retail Revolutionary and Social Innovator》", url: "https://blas.com/sol-price/", insight: "Sol Price 本是律师，正因为不受传统百货高毛利、高装修、高广告费的教条束缚，才敢用仓库+会员费模式彻底重构零售成本结构。", action: "在你的行业里，有哪些“大家一直都这么做”的潜规则，其实只是没人敢质疑的惯性？" },
+      { day: 28, theme: "retail", themeLabel: "护城河与零售", author: "Sol Price", initials: "SP", title: "商业排序：顾客第一，员工第二，股东第三", en: "Our first duty is to our customers.", zh: "我们的首要职责是对顾客负责。（顾客第一，员工第二，股东第三。）", source: "Robert Price《Sol Price: Retail Revolutionary and Social Innovator》", url: "https://blas.com/sol-price/", insight: "Sol Price 坚信给顾客极致的性价比、给员工优厚的薪酬与福利，看似让渡了短期利润，最终却为股东创造了惊人的长期回报。", action: "在做产品或团队决策时，看看是否因为过度迎合短期报表，而牺牲了用户或一线团队的长期利益。" },
+      { day: 29, theme: "model", themeLabel: "思维模型", author: "Charlie Munger", initials: "CM", title: "向“杰出的已故之人”学习", en: "Also, there is no reason to look only for living models. The eminent dead are in the nature of things some of the best models around. And if a model is all you want, you're really better off not limiting yourself to the living.", zh: "此外，没有理由只向活着的人学习。从本质上讲，杰出的已故先贤是你能找到的最好的榜样。如果你想寻找榜样，千万不要把自己局限于还在世的人。", source: "Peter Bevelin《Seeking Wisdom》", url: "", insight: "通过经典著作与传记与牛顿、富兰克林、达尔文、索尔·普莱斯对话，你可以用极低的时间成本，吸收人类数百年沉淀下来的最高智慧。", action: "选一位你敬佩的历史人物或商业先驱，今晚读一章他的传记或原始信件。" },
+      { day: 30, theme: "model", themeLabel: "思维模型", author: "Charlie Munger", initials: "CM", title: "最快的毁灭之道：变得不可靠", en: "First, be unreliable. Do not faithfully do what you have engaged to do. If you will only master this one habit you will more than counterbalance the combined effect of all your virtues, howsoever great.", zh: "首先，要变得不可靠，不要忠实地履行你的承诺。只要你掌握了这一个坏习惯，它就足以抵消你身上所有其他美德的总和，无论那些美德有多么伟大。", source: "Peter Bevelin《Seeking Wisdom》", url: "", insight: "信任是商业社会里成本最低、壁垒最高的货币。无论一个人多有才华，只要一次失信，就会被永远排除在最核心的信任网络之外。", action: "检查你答应过别人的一件小事，今天之内保质保量地给对方一个明确闭环。" }
+    ];
+
+    const CHECKLIST = [
+      "1. 使用构建现实底层逻辑的重大理念（Use the big ideas that underlie reality）",
+      "2. 真正理解事物的本质含义与隐含意义（Understand what something really means）",
+      "3. 化繁为简，先解决显而易见的“无脑问题”（Simplify）",
+      "4. 使用规则与过滤器（Use rules and filters）",
+      "5. 明确自己具体、可衡量的目标与底线（Know what I want to achieve and avoid）",
+      "6. 寻找并评估所有可行的替代方案与机会成本（Find and evaluate alternatives）",
+      "7. 理解后果以及后果的长期连锁反应（Understand consequences and their consequences）",
+      "8. 尽量量化关键变量与敏感度（Quantify）",
+      "9. 寻找并基于客观证据与反面证据做判断（Search for and base things on evidence）",
+      "10. 逆向思考：先想如何会失败，再想如何避免（Think things through backward）",
+      "11. 记住巨大效应往往来自多种因素的同向合力（Big effects come from combinations of factors）",
+      "12. 评估如果自己判断错了会有什么不可承受的后果（Evaluate the consequences if I'm wrong）"
+    ];
+
+    const NOW = new Date();
+    const TODAY = (NOW.getFullYear() === 2026 && NOW.getMonth() === 10) ? NOW.getDate() : 18;
+    document.getElementById("calSub").textContent = `红点为今日（11月${TODAY}日），点击任意日期阅读原文`;
+    let selectedDay = Number(localStorage.getItem("mp2_day")) || TODAY;
+    let themeFilter = "all";
+    let authorFilter = "all";
+    let onlyFavs = false;
+    let query = "";
+    let favs = new Set(JSON.parse(localStorage.getItem("mp2_favs") || "[]"));
+    let reads = new Set(JSON.parse(localStorage.getItem("mp2_reads") || "[18]"));
+    let notes = JSON.parse(localStorage.getItem("mp2_notes") || "{}");
+    let checks = JSON.parse(localStorage.getItem("mp2_checks") || "{}");
+
+    if (localStorage.getItem("mp2_ui") === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+
+    function save() {
+      localStorage.setItem("mp2_day", selectedDay);
+      localStorage.setItem("mp2_favs", JSON.stringify([...favs]));
+      localStorage.setItem("mp2_reads", JSON.stringify([...reads]));
+      localStorage.setItem("mp2_notes", JSON.stringify(notes));
+    }
+
+    function toast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      setTimeout(() => el.classList.remove("show"), 1800);
+    }
+
+    function matches(item) {
+      if (themeFilter !== "all" && item.theme !== themeFilter) return false;
+      if (authorFilter !== "all") {
+        if (authorFilter === "Murphy") {
+          if (!item.author.includes("Murphy") && !item.author.includes("Burke")) return false;
+        } else if (!item.author.includes(authorFilter)) return false;
+      }
+      if (onlyFavs && !favs.has(item.day)) return false;
+      if (query.trim()) {
+        const q = query.toLowerCase();
+        const text = `${item.author} ${item.title} ${item.en} ${item.zh} ${item.source} ${item.insight}`.toLowerCase();
+        if (!text.includes(q)) return false;
+      }
+      return true;
+    }
+
+    function renderGrid() {
+      const grid = document.getElementById("calGrid");
+      grid.innerHTML = "";
+      DATA.forEach(item => {
+        const btn = document.createElement("button");
+        btn.className = "day-cell" +
+          (item.day === selectedDay ? " selected" : "") +
+          (item.day === TODAY ? " today" : "") +
+          (!matches(item) ? " dimmed" : "");
+        btn.onclick = () => selectDay(item.day);
+
+        const isRead = reads.has(item.day);
+        const isFav = favs.has(item.day);
+        const hasNote = Boolean(notes[item.day] && notes[item.day].trim());
+
+        btn.innerHTML = `
+          <div class="cell-top"><span>${item.day}</span></div>
+          <div class="cell-author">${item.author.split(" ").pop()}</div>
+          <div class="cell-marks">
+            ${isRead ? '<span class="mark-dot mark-read" title="已读"></span>' : ''}
+            ${isFav ? '<span class="mark-dot mark-fav" title="收藏"></span>' : ''}
+            ${hasNote ? '<span class="mark-dot mark-note" title="有笔记"></span>' : ''}
+          </div>
+        `;
+        grid.appendChild(btn);
+      });
+
+      document.getElementById("favCount").textContent = favs.size;
+      document.getElementById("readCount").textContent = reads.size;
+    }
+
+    function renderReader() {
+      const item = DATA.find(d => d.day === selectedDay) || DATA[0];
+      const isFav = favs.has(item.day);
+      const isRead = reads.has(item.day);
+      const sourceHtml = item.url ? `<a href="${item.url}" target="_blank" rel="noopener">${item.source} ↗</a>` : item.source;
+
+      const reader = document.getElementById("reader");
+      reader.innerHTML = `
+        <div class="reader-header">
+          <div>
+            <div class="meta-badges">
+              <span class="date-pill">11月${item.day}日 · DAY ${item.day} / 30</span>
+              <span class="theme-pill t-${item.theme}">${item.themeLabel}</span>
+            </div>
+            <h2 class="reader-title">${item.title}</h2>
+            <div class="author-row">
+              <div class="avatar">${item.initials}</div>
+              <div>
+                <div style="font-size: 0.9rem; font-weight: 600;">${item.author}</div>
+                <div class="source-line">出处：${sourceHtml}</div>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn ${isFav ? 'active' : ''}" id="favBtn">${isFav ? '★ 已收藏' : '☆ 收藏'}</button>
+            <button class="btn ${isRead ? 'active' : ''}" id="readBtn">${isRead ? '✓ 已读' : '○ 标记已读'}</button>
+            <button class="btn" id="copyBtn">📋 复制原文</button>
+          </div>
+        </div>
+
+        <div class="quote-stage">
+          <div class="quote-watermark">”</div>
+          <div class="quote-kicker">Original English Excerpt</div>
+          <div class="quote-en">“${item.en}”</div>
+          <div class="quote-zh">${item.zh}</div>
+        </div>
+
+        <div class="two-col">
+          <div class="info-box">
+            <h3>🔍 商业逻辑拆解</h3>
+            <p>${item.insight}</p>
+          </div>
+          <div class="info-box action">
+            <h3>💡 今日行动自检</h3>
+            <p>${item.action}</p>
+          </div>
+        </div>
+
+        <div class="note-box">
+          <label for="dayNote">
+            <span>✍️ 我的当日思考随笔（自动保存）</span>
+            <span style="color: var(--muted); font-weight: 400;">仅保存在本机浏览器</span>
+          </label>
+          <textarea id="dayNote" placeholder="写下今天读完这段原文后，对你当前工作、管理或投资的一点启发…">${notes[item.day] || ""}</textarea>
+        </div>
+
+        <div class="reader-footer">
+          <div style="display: flex; gap: 8px;">
+            <button class="btn" id="prevBtn">← 上一天</button>
+            <button class="btn" id="todayJumpBtn">回到今日 (${TODAY}日)</button>
+            <button class="btn" id="nextBtn">下一天 →</button>
+          </div>
+          <div class="kbd-hint">快捷键：<kbd>←</kbd> <kbd>→</kbd> 翻天 · <kbd>F</kbd> 收藏</div>
+        </div>
+      `;
+
+      document.getElementById("favBtn").onclick = () => {
+        if (favs.has(item.day)) favs.delete(item.day);
+        else favs.add(item.day);
+        save(); renderGrid(); renderReader();
+      };
+
+      document.getElementById("readBtn").onclick = () => {
+        if (reads.has(item.day)) reads.delete(item.day);
+        else reads.add(item.day);
+        save(); renderGrid(); renderReader();
+      };
+
+      document.getElementById("copyBtn").onclick = () => {
+        const text = `【Day ${item.day} · ${item.title}】\n"${item.en}"\n—— ${item.author} (${item.source})\n\n译文：${item.zh}\n\n商业拆解：${item.insight}`;
+        navigator.clipboard.writeText(text).then(() => toast("已复制中英原文与拆解"));
+      };
+
+      document.getElementById("dayNote").addEventListener("input", e => {
+        notes[item.day] = e.target.value;
+        save(); renderGrid();
+      });
+
+      document.getElementById("prevBtn").onclick = () => selectDay(item.day > 1 ? item.day - 1 : 30);
+      document.getElementById("nextBtn").onclick = () => selectDay(item.day < 30 ? item.day + 1 : 1);
+      document.getElementById("todayJumpBtn").onclick = () => selectDay(TODAY);
+    }
+
+    function selectDay(day) {
+      selectedDay = day;
+      reads.add(day);
+      save(); renderGrid(); renderReader();
+    }
+
+    document.querySelectorAll("#themeFilters .chip").forEach(c => {
+      c.onclick = () => {
+        document.querySelectorAll("#themeFilters .chip").forEach(x => x.classList.remove("active"));
+        c.classList.add("active");
+        themeFilter = c.dataset.theme;
+        renderGrid();
+      };
+    });
+
+    document.querySelectorAll("#authorFilters .chip").forEach(c => {
+      c.onclick = () => {
+        document.querySelectorAll("#authorFilters .chip").forEach(x => x.classList.remove("active"));
+        c.classList.add("active");
+        authorFilter = c.dataset.author;
+        renderGrid();
+      };
+    });
+
+    document.getElementById("favFilterBtn").onclick = function () {
+      onlyFavs = !onlyFavs;
+      this.classList.toggle("active", onlyFavs);
+      renderGrid();
+    };
+
+    document.getElementById("searchInput").addEventListener("input", e => {
+      query = e.target.value;
+      renderGrid();
+    });
+
+    document.getElementById("themeBtn").onclick = () => {
+      const dark = document.documentElement.getAttribute("data-theme") === "dark";
+      document.documentElement.setAttribute("data-theme", dark ? "light" : "dark");
+      localStorage.setItem("mp2_ui", dark ? "light" : "dark");
+    };
+
+    function renderChecklist() {
+      const body = document.getElementById("checklistBody");
+      body.innerHTML = CHECKLIST.map((t, i) => `
+        <label class="check-row">
+          <input type="checkbox" ${checks[i] ? "checked" : ""} data-i="${i}" />
+          <span style="font-size: 0.92rem;">${t}</span>
+        </label>
+      `).join("");
+      body.querySelectorAll("input").forEach(inp => {
+        inp.onchange = () => {
+          checks[inp.dataset.i] = inp.checked;
+          localStorage.setItem("mp2_checks", JSON.stringify(checks));
+        };
+      });
+    }
+
+    document.getElementById("checklistBtn").onclick = () => {
+      renderChecklist();
+      document.getElementById("checklistModal").classList.add("open");
+    };
+
+    document.getElementById("closeModalBtn").onclick = () => {
+      document.getElementById("checklistModal").classList.remove("open");
+    };
+
+    document.getElementById("checklistModal").onclick = e => {
+      if (e.target.id === "checklistModal") e.target.classList.remove("open");
+    };
+
+    document.addEventListener("keydown", e => {
+      if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
+      if (e.key === "ArrowLeft") selectDay(selectedDay > 1 ? selectedDay - 1 : 30);
+      if (e.key === "ArrowRight") selectDay(selectedDay < 30 ? selectedDay + 1 : 1);
+      if (e.key.toLowerCase() === "f") {
+        if (favs.has(selectedDay)) favs.delete(selectedDay);
+        else favs.add(selectedDay);
+        save(); renderGrid(); renderReader();
+      }
+    });
+
+    renderGrid();
+    renderReader();
+  </script>
+</body>
+</html>
