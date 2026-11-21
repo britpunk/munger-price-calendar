@@ -1,0 +1,46 @@
+{
+  "menuItems": [
+    {
+      "name": "双日历",
+      "priority": 1,
+      "items": [
+        {
+          "name": "更新今日佛学卡片",
+          "priority": 1,
+          "type": "bin",
+          "path": "bin/update.sh",
+          "params": "buddhism",
+          "blocking": false,
+          "refresh": false
+        },
+        {
+          "name": "更新今日芒格卡片",
+          "priority": 2,
+          "type": "bin",
+          "path": "bin/update.sh",
+          "params": "munger",
+          "blocking": false,
+          "refresh": false
+        },
+        {
+          "name": "开启每小时自动轮换",
+          "priority": 3,
+          "type": "bin",
+          "path": "bin/autostart.sh",
+          "params": "",
+          "blocking": false,
+          "refresh": false
+        },
+        {
+          "name": "停止自动轮换",
+          "priority": 4,
+          "type": "bin",
+          "path": "bin/autostop.sh",
+          "params": "",
+          "blocking": false,
+          "refresh": false
+        }
+      ]
+    }
+  ]
+}
